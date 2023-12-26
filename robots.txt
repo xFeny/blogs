@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://www.feny.ink/vuepress-blogs/sitemap.xml
+Sitemap: https://www.feny.ink/sitemap.xml
