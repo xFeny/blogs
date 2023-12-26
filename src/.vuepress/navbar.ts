@@ -14,7 +14,7 @@ export default navbar([
   },
   {
     text: "Spring Could Alibaba",
-    prefix: "/posts/Spring Could Alibaba/",
+    prefix: "/posts/Spring Cloud Alibaba/",
     children: [
       "nacos/Nacos配置.md",
     ],
