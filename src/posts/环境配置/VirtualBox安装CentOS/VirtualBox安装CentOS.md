@@ -10,7 +10,7 @@ tag:
   - CentOS
 ---
 
-# VirtualBox虚拟机安装CentOS服务器 
+# VirtualBox安装CentOS 
 
 ## 一、前期准备工作  
 

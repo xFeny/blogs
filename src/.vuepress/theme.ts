@@ -1,4 +1,5 @@
 import { hopeTheme } from "vuepress-theme-hope";
+import navbar from "./navbar.js";
 
 export default hopeTheme({
   hostname: "www.feny.ink",
@@ -14,6 +15,8 @@ export default hopeTheme({
   footer: '<a href="https://beian.miit.gov.cn" target="_blank">粤ICP备18117352号</a>',
 
   displayFooter: true,
+
+  navbar,
 
   plugins: {
     blog: true,
