@@ -9,7 +9,7 @@ export default navbar([
       "虚拟机/VirtualBox安装CentOS.md",
       "Java环境配置/Java环境配置.md",
       "Node.js安装/Node.js安装.md",
-      
+      "Redis 安装/Redis 安装",
       
     ],
   },
