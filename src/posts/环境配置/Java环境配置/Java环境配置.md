@@ -19,37 +19,37 @@ tag:
 ### 第二步 配置环境变量
 1. 首先找到jdk的安装目录，默认情况下在C:\Program Files\Java目录下  
 2. 然后我们点击桌面“我的电脑”右键“属性”：  
-![Alt text](image.png)  
+![](image.png)  
 
 3. 点击“高级系统设置”：  
-![Alt text](image-2.png)  
+![](image-2.png)  
 
 4. 点击“环境变量”：  
-![Alt text](image-3.png)  
+![](image-3.png)  
 
 5. 在“系统变量”中新建一个，变量名：JAVA_HOME，变量值为JDK的安装路径。  
-![Alt text](image-6.png)  
+![](image-6.png)  
 
 6. 新建一个CLASSPATH路径，输入：
 
 ```
 .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar
 ```
-![Alt text](image-7.png)  
+![](image-7.png)  
 
 7. 找到path变量：  
-![Alt text](image-9.png)  
+![](image-9.png)  
 
 8. 点击编辑，然后选择新建，加入下面变量值，最后点确定:  
   
 ```
 %JAVA_HOME%\bin
 ```
-![Alt text](image-10.png)  
+![](image-10.png)  
 
 9. 在cmd中输入javac，出现以下页面，就可以了  
 
-![Alt text](image-8.png)
+![](image-8.png)
 
 如果运行没有出任何问题的话，那么表示JDK已经配置成功了！  
 
@@ -57,21 +57,21 @@ tag:
 
 ### 方法一：手动解压JDK的压缩包，然后设置环境变量
 #### 1.在/usr/目录下创建java目录 
-```linux
+```sh
 [root@localhost ~]# mkdir/usr/java
 [root@localhost ~]# cd /usr/java
 ```
 #### 2.下载，然后解压
-```linux
+```sh
 [root@localhost java]# curl -O http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz 
 [root@localhost java]# tar -zxvf jdk-7u79-linux-x64.tar.gz
 ```
 #### 3.设置环境变量
-```linux
+```sh
 [root@localhost java]# vim /etc/profile
 ```
 在最后面添加如下内容：  
-```linux
+```sh
 #set java environment
 export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.75.x86_64
 export JRE_HOME=$JAVA_HOME/jre
@@ -79,11 +79,11 @@ export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
 export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 ```
 让修改生效：  
-```linux
+```sh
 [root@localhost java]# source /etc/profile
 ```
 #### 4.验证
-```linux
+```sh
 [root@localhost java]# java -version
 java version "1.7.0_79"
 Java(TM) SE Runtime Environment (build 1.7.0_79-b15)
@@ -92,7 +92,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)
 ### 方法二：用yum安装JDK(CentOS)
 #### 1.查看yum库中都有哪些jdk版本  
 
-```linux
+```sh
 [root@localhost ~]# yum search java|grep jdk
 java-1.6.0-openjdk.x86_64 : OpenJDK Runtime Environment
 java-1.6.0-openjdk-demo.x86_64 : OpenJDK Demos
@@ -125,20 +125,20 @@ java-1.8.0-openjdk-src.x86_64 : OpenJDK 8 Source Bundle
 
 我们这里安装1.8版本
 
-```linux
+```sh
 [root@localhost ~]# yum -y install java-1.8.0-openjdk-devel.x86_64
 ```  
 安装完之后，默认的安装目录是在: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64  
 
 #### 3.设置环境变量  
 
-```linux
+```sh
 [root@localhost java]# vim /etc/profile
 ```  
 
 在最后面添加如下内容：    
 
-```linux
+```sh
 #set java environment
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64（修改为你自己所对应的版本）
 export JRE_HOME=$JAVA_HOME/jre
@@ -146,13 +146,13 @@ export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
 export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 ```
 让修改生效：  
-```linux
+```sh
 [root@localhost java]# source /etc/profile
 ```  
 
 #### 4.验证  
 
-```linux
+```sh
 [root@localhost java]# java -version
 java version "1.7.0_79"
 Java(TM) SE Runtime Environment (build 1.7.0_79-b15)
