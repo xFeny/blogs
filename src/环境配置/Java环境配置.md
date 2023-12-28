@@ -1,6 +1,5 @@
 ---
 date: 2023-12-25
-sidebar: false
 category:
   - Java
   - 环境配置
@@ -19,37 +18,37 @@ tag:
 ### 第二步 配置环境变量
 1. 首先找到jdk的安装目录，默认情况下在C:\Program Files\Java目录下  
 2. 然后我们点击桌面“我的电脑”右键“属性”：  
-![](image.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326725.png)  
 
 3. 点击“高级系统设置”：  
-![](image-2.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326801.png)  
 
 4. 点击“环境变量”：  
-![](image-3.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326559.png)  
 
 5. 在“系统变量”中新建一个，变量名：JAVA_HOME，变量值为JDK的安装路径。  
-![](image-6.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326919.png)  
 
 6. 新建一个CLASSPATH路径，输入：
 
 ```
 .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar
 ```
-![](image-7.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326522.png)  
 
 7. 找到path变量：  
-![](image-9.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326042.png)  
 
 8. 点击编辑，然后选择新建，加入下面变量值，最后点确定:  
-  
+
 ```
 %JAVA_HOME%\bin
 ```
-![](image-10.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326206.png)  
 
 9. 在cmd中输入javac，出现以下页面，就可以了  
 
-![](image-8.png)
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326935.png)
 
 如果运行没有出任何问题的话，那么表示JDK已经配置成功了！  
 
@@ -120,21 +119,21 @@ java-1.8.0-openjdk-javadoc.noarch : OpenJDK 8 API documentation
 java-1.8.0-openjdk-javadoc-zip.noarch : OpenJDK 8 API documentation compressed
 java-1.8.0-openjdk-src.i686 : OpenJDK Source Bundle 8
 java-1.8.0-openjdk-src.x86_64 : OpenJDK 8 Source Bundle
-```  
+```
 #### 2.选择版本，进行安装  
 
 我们这里安装1.8版本
 
 ```sh
 [root@localhost ~]# yum -y install java-1.8.0-openjdk-devel.x86_64
-```  
+```
 安装完之后，默认的安装目录是在: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64  
 
 #### 3.设置环境变量  
 
 ```sh
 [root@localhost java]# vim /etc/profile
-```  
+```
 
 在最后面添加如下内容：    
 
@@ -148,7 +147,7 @@ export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 让修改生效：  
 ```sh
 [root@localhost java]# source /etc/profile
-```  
+```
 
 #### 4.验证  
 

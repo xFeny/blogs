@@ -1,24 +1,24 @@
 ---
 date: 2023-12-28
-sidebar: false
+# sidebar: false
 category:
   - Redis
   - 环境配置
 tag:
   - Redis
   - 环境配置
----  
+---
 
 # Redis 安装
 
 ## 一、安装依赖
 
-因为 Redis 是用C语言开发的，所以在安装之前需要确定是否安装gcc环境，如果没有安转可以执行一下命令进行安装
-
+因为 Redis 是用C语言开发的，所以在安装之前需要确定是否安装gcc环境  
 ```sh
 gcc -v
-```  
+```
 
+如果没有安装可以执行以下命令进行安装：  
 ```sh
 yum install -y gcc
 ```
@@ -31,18 +31,18 @@ Redis 版本：<http://download.redis.io/releases>
 ```sh
 wget http://download.redis.io/releases/redis-6.2.6.tar.gz
 tar -zxvf redis-6.2.6.tar.gz
-```  
+```
 
 切换到redis解压目录下，执行编译  
 ```sh
 cd redis-6.2.6
 make
-```  
+```
 
 指定安装目录  
 ```sh
 make install PREFIX=/usr/local/redis
-```  
+```
 
 ## 三、启动 Redis  
 
@@ -51,7 +51,7 @@ make install PREFIX=/usr/local/redis
 进入到解压的 redis-6.2.6 文件夹中复制 redis.conf 到 redis 的安装目录   
 ```sh
 cp ~/redis-6.2.6/redis.conf /usr/local/redis/bin
-```   
+```
 
 进入/usr/local/redis/bin修改 redis.conf 文件，把 daemonize no 改为 daemonize yes  
 ```sh
@@ -59,7 +59,7 @@ vim /usr/local/redis/bin/redis.conf
 
 #搜索daemonize
 /daemonize
-```  
+```
 
 ```sh
 # /usr/local/redis/bin/redis.conf
@@ -70,7 +70,7 @@ daemonize yes
 在 /usr/local/redis/bin 路径下后台启动命令  
 ```sh
 ./redis-server redis.conf
-```  
+```
 
 查看 是否启动成功  
 ```sh
@@ -82,7 +82,7 @@ ps -ef |grep redis
 编辑 /etc/systemd/system/redis.service 文件  
 ```sh
 vim /etc/systemd/system/redis.service
-```  
+```
 
 复制粘贴以下内容：  
 ```sh
@@ -97,7 +97,7 @@ PrivateTmp=true
  
 [Install]
 WantedBy=multi-user.target
-```  
+```
 
 > ExecStart配置成自己的路径    
 
@@ -114,7 +114,7 @@ systemctl enable redis
 启动redis服务  
 ```sh
 systemctl start redis
-```  
+```
 
 创建 Redis 命令软链接
 ```sh
@@ -182,7 +182,7 @@ port 6379
 
 ```sh
 vim /usr/local/redis/bin/redis.conf
-```  
+```
 
 找到 bind 127.0.0.1 -::1，修改为
 ```sh
@@ -194,12 +194,12 @@ bind 0.0.0.0
 重启 Redis  
 ```sh
 systemctl restart redis
-```  
+```
 
 开放 Redis 端口  
 ```sh
 firewall-cmd --zone=public --add-port=6379/tcp --permanent
-```  
+```
 
 重启防火墙  
 ```sh
@@ -207,7 +207,7 @@ firewall-cmd --reload
 ```
 
 测试客户端连接成功  
-![](image.png)
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281328437.png)
 
 ### 6、服务操作命令 
 

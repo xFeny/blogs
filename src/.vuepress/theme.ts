@@ -4,7 +4,7 @@ import navbar from "./navbar.js";
 export default hopeTheme({
   hostname: "www.feny.ink",
   // 全局禁用路径导航
-  breadcrumb: false,
+  // breadcrumb: false,
   // 作者信息
   author: {
     name: "",

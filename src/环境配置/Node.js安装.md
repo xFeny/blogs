@@ -1,13 +1,12 @@
 ---
 date: 2023-12-27
-sidebar: false
 category:
   - Node
   - 环境配置
 tag:
   - Node
   - 环境配置
----  
+---
 
 
 # Node.js 安装
@@ -18,20 +17,20 @@ tag:
 Node.js官网：<https://nodejs.org/en>  
 Node.js中文网：<http://www.nodejs.com.cn/>  
 
-![](20231227114828.png)
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327821.png)
 
 ### 二、安装
 （1）、下载好安装包后双击安装，点击 Next 显示Node.js的许可协议页面：  
-![](image.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327327.png)  
 
 （2）、勾选“I accept the terms in the License Agreement”同意许可协议，并单击Next下一步，出现如下界面：  
-![](image-1.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327420.png)  
 
 （3）、Node.js默认安装路径为“C:\Program Files\nodejs\”，你可以修改，在这里我改到了D盘，单击Next，出现安装模式及模块选择界面：  
-![](image-2.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327732.png)  
 
 （4）、确认无误后，点击Install，开始安装：  
-![](image-3.png)
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327896.png)
 
 （5）、安装完成，点击Finish即可
 
@@ -45,18 +44,18 @@ Node.js中文网：<http://www.nodejs.com.cn/>
 
 （7）、检测是否安装成功  
 
-![](image-4.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327544.png)  
 
 ### 三、配置淘宝镜像
 1、查看当前镜像源  
 首先我们需要查看当前Node.js使用的镜像源。在命令行中输入以下命令：
 ```sh
 npm config get registry
-```  
+```
 此命令将返回Node.js当前使用的镜像源地址，如果是默认的官方镜像源，将返回以下结果：  
 ```
 https://registry.npmjs.org/
-```  
+```
 2、使用淘宝镜像  
 要使用淘宝镜像，我们需要将npm注册表的地址从默认的官方镜像源切换到淘宝源。命令如下：  
 ```sh
@@ -83,7 +82,7 @@ npm config get cache
 npm config set prefix "D:\software\nodejs\node_global"
 
 npm config set cache "D:\software\nodejs\node_cache"
-```  
+```
 
 3、环境配置  
 
@@ -93,11 +92,11 @@ D:\software\nodejs 为 Node 的安装路径，在此路劲下分别创建 node_g
 （1）、在【系统变量】下新建【NODE_PATH】，输入
 ```
 D:\software\nodejs\node_global\node_modules
-```  
+```
 （2）、在【系统变量】下的【Path】添加上Node的路径（一般安装Node时已经添加进来）  
 ```
 D:\software\nodejs\
-```  
+```
 （3）、在【用户变量】下的【Path】添加上  
 ```
 D:\software\nodejs\node_global
@@ -138,20 +137,20 @@ npm ERR! the command again as root/Administrator.
 
 npm ERR! Log files were not written due to an error writing to the directory: D:\software\nodejs\node_cache\_logs
 npm ERR! You can rerun the command with `--loglevel=verbose` to see the logs in your terminal
-```  
+```
 
 **解决方案：**  
 找到安装node.js的文件夹 -右键-属性-安全，给用户完全控制的权限。  
-![](20231227130613.png)  
-![](20231227130658.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327606.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327924.png)  
 
 设置安后重新执行命令，安装成功 
 
-![](image-6.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327068.png)  
 
 可以看到刚安装的 yarn 出现在自定义 npm 全局包下载路径中，问题解决  
 
-![](20231227130927.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281327908.png)  
 
 
 ## CentOS 下安装
@@ -171,7 +170,7 @@ yum install -y wget
 cd /usr/local/
 wget https://nodejs.org/download/release/latest-v18.x/node-v18.19.0-linux-x64.tar.gz
 tar -xvf node-v18.19.0-linux-x64.tar.gz
-```  
+```
 
 ### 二、配置环境变量 
 
@@ -184,12 +183,12 @@ vim /etc/profile
 ```sh
 export NODEJS=/usr/local/node-v18.19.0-linux-x64
 export PATH=$PATH:$NODEJS/bin
-```  
+```
 
 刷新环境变量  
 ```sh
 source /etc/profile
-```  
+```
 
 ### 三、建立软连接，是否安装成功
 建立软连接  
@@ -204,7 +203,7 @@ ln -s /usr/local/node-v18.19.0-linux-x64/bin/npm /usr/bin
 ```sh
 [root@localhost ~]# node -v
 [root@localhost ~]# npm -v
-```  
+```
 >**注意：** CentOS 7 安装 Node v18 及以后版本执行 node -v 会报错，具体解决办法看[遇到的问题](#六、遇到的问题)  
 
 ### 四、切换淘宝镜像 
@@ -231,7 +230,7 @@ node: /lib64/libc.so.6: version `GLIBC_2.28' not found (required by node)
 node: /lib64/libstdc++.so.6: version `CXXABI_1.3.9' not found (required by node)
 node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by node)
 node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by node)
-```  
+```
 **问题原因：** Node从v18开始不再支持CentOS 7，而CentOS 7的 GLIBC 版本过低，造成报错  
 
 查看GLIBC版本：  
@@ -246,7 +245,7 @@ ldd --version
 ①、升级bison  
 ```sh
 yum -y install bison
-```  
+```
 
 ②、升级 gcc
 
@@ -284,7 +283,7 @@ cd /usr/bin/
 # backup
 mv make make.bak
 ln -sv /usr/local/make/bin/make /usr/bin/make
-```  
+```
 
 ④、升级 libstdc++  
 ```sh
@@ -303,7 +302,7 @@ rm -f libstdc++.so.6
 
 # 重新链接
 ln -s libstdc++.so.6.0.26 libstdc++.so.6
-```  
+```
 
 ⑤、更新 glibc  
 ```sh
@@ -318,7 +317,7 @@ cd glibc-2.28/ && mkdir build  && cd build
 # make -j4 多线程编译
 make
 make install
-```  
+```
 make安装耗时比较久，需耐心等待完成
 
 ⑥、查看版本  

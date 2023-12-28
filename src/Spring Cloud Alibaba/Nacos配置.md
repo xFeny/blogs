@@ -1,6 +1,5 @@
 ---
 date: 2023-12-26
-sidebar: false
 category:
   - Spring Cloud Alibaba
 tag:
@@ -17,19 +16,19 @@ tag:
 ### 第二步、上传Nacos到CentOS系统，对安装包解压缩。
 ```
 [root@server-1 local]# tar -xvf nacos-server-2.3.0.tar.gz
-```  
+```
 
 ### 第三步、以单点方式启动 Nacos。
 ```sh
 [root@server-1 local]# cd nacos/bin
 [root@server-1 bin]# sh startup.sh -m standalone
-```  
+```
 
 默认 Nacos 以后台模式启动，利用 tail 命令查看启动日志。可以看到 Nacos 默认端口为 8848，下
 面日志说明 Nacos 单机模式已启动成功。  
 ```sh
 [root@server-1 bin]# tail -f /usr/local/nacos/logs/start.out
-```  
+```
 ### 第四步、设置防火墙对nacos端口放行。  
 |   端口     |   描述     |
 | -------- | -------- |
@@ -41,32 +40,32 @@ tag:
 ```sh 
 [root@server-1 bin]# firewall-cmd --zone=public --add-port=8848/tcp --perm anent
 success
-```  
+```
 
 ```sh 
 [root@server-1 bin]# firewall-cmd --zone=public --add-port=9848/tcp --perm anent
 success
-```  
+```
 
 ```sh 
 [root@server-1 bin]# firewall-cmd --zone=public --add-port=9849/tcp --perm anent
 success
-```  
+```
 
 ```sh 
 [root@server-1 bin]# firewall-cmd --zone=public --add-port=7848/tcp --perm anent
 success
-```  
+```
 重启防火墙使配置生效
 ```sh 
 [root@server-1 bin]# firewall-cmd --reload
 success
-```  
+```
 此时，Nacos 已单机部署完毕。  
 
 ### 第五步，进入 Nacos 管理界面  
 打开浏览器，地址栏输入：<http://localhost:8848/nacos/>  
-![](1703595582766.png)
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281325743.png)
 
 ## 二、Nacos集群配置
 
@@ -79,14 +78,14 @@ Nacos 因为选举算法的特殊性，要求最少三个节点才能组成一�
 
 使用任意 MySQL 客户端工具连接到 MySQL 数据库服务器，创建名为nacos的数据库，之后使用 MySQL 客户端执
 行 nacos/conf/mysql-schema.sql 文件，完成建表工作。  
-![](1703596419816.png)
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281325914.png)
 
 ### 第四步、配置 Nacos 数据源  
 
 依次打开 3 台 Nacos 服务器中的核心配置文件 application.properties，文件路径如下：
 ```sh
 nacos/conf/application.properties
-```  
+```
 默认数据源配置都被#号注释，删除注释按下方示例配置数据源即可。
 ```sh
 spring.sql.init.platform=mysql
@@ -112,7 +111,7 @@ Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieva
         at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:85)
         at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:130)
         ... 142 common frames omitted
-```   
+```
 **解决办法：** 在 db.url 后面加上 allowPublicKeyRetrieval=true 即可
 
 
@@ -122,29 +121,29 @@ Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieva
 首先利用复制命令创建 cluster.conf 文件。  
 ```sh
 cp cluster.conf.example cluster.conf
-```  
+```
 
 之后打开 cluster.conf，添加所有 Nacos 集群节点 IP 及端口。
 ```sh
 192.168.0.127:8848
 192.168.0.139:8848
 192.168.0.156:8848
-```  
+```
 
 第六步、启动 Nacos 服务器。  
 在3台 Nacos 节点上分别执行下面的启动命令。
 ```sh
 sh /usr/local/nacos/bin/startup.sh
-```  
+```
 **注意：** 集群模式下并不需要增加“-m”参数，默认就是以集群方式启动。  
 启动时可以通过 tail 命令观察启动过程。  
 ```sh
 tail -f /usr/local/nacos/logs/start.out
-```  
+```
 
 当确保所有节点均启动成功，打开浏览器访问对应的IP地址nacos后台，便可看到集群列表  
-![](1703596846407.png)
-![](image.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281325509.png)
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281325256.png)  
 
 ## 三、Nacos 开启身份认证
 Nacos自2.2.2版本开始，在未开启鉴权时，默认控制台将不需要登录即可访问，同时在控制台中给予提示，提醒用户当前集群未开启鉴权。  
@@ -164,7 +163,7 @@ nacos.core.auth.server.identity.value=Feny
 
 # 自定义密钥时，推荐将配置项设置为Base64编码的字符串，且原始密钥长度不得低于32字符
 nacos.core.auth.plugin.nacos.token.secret.key=cjViZWc2MmRndmdwMjNiNGoyNDZnNGN1bTQ0bWpzMXo=
-```  
+```
 为方便省事，使用Hutool工具生成 nacos.core.auth.plugin.nacos.token.secret.key 的自定义密钥：  
 ```java
 import cn.hutool.core.codec.Base64;
@@ -179,13 +178,13 @@ System.out.println(Base64.encode(RandomUtil.randomString(32)));
 ### （1）、新建项目
 
 在 IntelliJ IDEA 新建项目  
-![](20231227144209.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326203.png)  
 
 选择Spring Initializr-->选Custom，填写阿里 <http://start.aliyun.com>，点击Next进行下一步  
-![](20231227144310.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326235.png)  
 
 依赖选择如下：    
-![](20231227144907.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326925.png)  
 选择完成后点击 Next，项目名，存放路径按自己喜好设置好，点击Finish完成  
 
 ### （2）、服务注册到 Nacos
@@ -210,10 +209,10 @@ spring:
                 # 密码已修改，默认密码为 nacos
                 password: 123456
 
-```  
+```
 ### （3）、启动服务
 服务启动成功后，在Nacos控制台--服务管理--服务列表中看到有服务，表示服务注册成功  
 
-![](image-4.png)  
+![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281326377.png)  
 
 ## 四、服务间请求
