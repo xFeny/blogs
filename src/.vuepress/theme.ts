@@ -3,13 +3,16 @@ import navbar from "./navbar.js";
 
 export default hopeTheme({
   hostname: "www.feny.ink",
-  // 全局禁用路径导航
-  // breadcrumb: false,
-  // 作者信息
+
   author: {
     name: "",
     url: "https://www.feny.ink",
   },
+
+  iconAssets: "fontawesome-with-brands",
+
+  logo: "/logo.svg",
+
   docsDir: "src",
 
   footer: '<a href="https://beian.miit.gov.cn" target="_blank">粤ICP备18117352号</a>',
@@ -17,6 +20,10 @@ export default hopeTheme({
   displayFooter: true,
 
   navbar,
+
+  blog: {
+    description: "一个默默无闻的后端开发者",
+  },
 
   plugins: {
     blog: true,

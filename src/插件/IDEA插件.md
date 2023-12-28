@@ -13,8 +13,7 @@ JRebel for IntelliJ 热部署   <https://www.cnblogs.com/flyrock/archive/2019/09
 
 FindBugs 寻找隐藏bug
 
-Mybatis Log plugin 控制台Mybatis sql参数填充为可执行SQL  
-[Mybatis Log plugin.jar](<Mybatis log plugin-2020.1-1.0.3.jar>)
+Mybatis Log plugin 控制台Mybatis sql参数填充为可执行SQL [下载](<Mybatis log plugin-2020.1-1.0.3.jar>)  
 
 SonarLint 代码质量检测
 

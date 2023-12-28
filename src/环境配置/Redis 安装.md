@@ -11,7 +11,69 @@ tag:
 
 # Redis 安装
 
-## 一、安装依赖
+
+
+## Windows 下安装
+
+### 一、下载安装
+
+Redis 下载地址：<https://github.com/MicrosoftArchive/redis/releases>
+
+Redis可视化工具：<https://gitee.com/qishibo/AnotherRedisDesktopManager/releases>
+
+将下载的压缩包解压到一个文件夹中
+
+![img](http://oss.feny.ink/images/202312281802988.png) 
+
+### 二、启动临时服务
+
+<img src="http://oss.feny.ink/images/202312281803809.png" alt="img" style="zoom: 80%;" />  
+
+```sh
+redis-server.exe redis.windows.conf
+```
+
+> **备注：** 通过这个命令，会创建Redis临时服务，不会在window Service列表出现Redis服务名称和状态，此窗口关闭，服务会自动关闭。
+
+<img src="http://oss.feny.ink/images/202312281806314.png" alt="img" style="zoom: 80%;" /> 
+
+打开另一个cmd窗口，客户端调用：redis-cli.exe -h 127.0.0.1 -p 6379
+
+<img src="http://oss.feny.ink/images/202312281807495.png" alt="img" style="zoom: 80%;" /> 
+
+
+
+### 三、添加到Windows服务
+
+进入Redis安装包目录，安装服务
+
+```sh
+redis-server --service-install redis.windows.conf
+```
+
+<img src="http://oss.feny.ink/images/202312281808908.png" alt="img" style="zoom:80%;" />  
+
+win+r -> services.msc可以看到服务安装成功
+
+<img src="http://oss.feny.ink/images/202312281809830.png" alt="img" style="zoom:80%;" />   
+
+::: tip 相关启动命令
+
+安装服务：redis-server --service-install redis.windows.conf
+
+开启服务：redis-server --service-start
+
+停止服务：redis-server --service-stop
+
+卸载服务：redis-server --service-uninstall
+
+:::
+
+
+
+## CentOS 下安装
+
+### 一、安装依赖
 
 因为 Redis 是用C语言开发的，所以在安装之前需要确定是否安装gcc环境  
 ```sh
@@ -23,7 +85,7 @@ gcc -v
 yum install -y gcc
 ```
 
-## 二、下载安装
+### 二、下载安装
 
 Redis 版本：<http://download.redis.io/releases>  
 
@@ -44,14 +106,14 @@ make
 make install PREFIX=/usr/local/redis
 ```
 
-## 三、启动 Redis  
+### 三、启动 Redis  
 
-### 1、后台方式启动  
+#### 1、后台方式启动  
 
-进入到解压的 redis-6.2.6 文件夹中复制 redis.conf 到 redis 的安装目录   
+<!-- 进入到解压的 redis-6.2.6 文件夹中复制 redis.conf 到 redis 的安装目录   
 ```sh
 cp ~/redis-6.2.6/redis.conf /usr/local/redis/bin
-```
+``` -->
 
 进入/usr/local/redis/bin修改 redis.conf 文件，把 daemonize no 改为 daemonize yes  
 ```sh
@@ -77,7 +139,7 @@ daemonize yes
 ps -ef |grep redis
 ```
 
-### 2、开机启动  
+#### 2、开机启动  
 
 编辑 /etc/systemd/system/redis.service 文件  
 ```sh
@@ -128,7 +190,7 @@ ln -s /usr/local/redis/bin/redis-cli /usr/bin/redis
 ```
 
 
-### 3、修改redis密码  
+#### 3、修改redis密码  
 
 编辑 /usr/local/redis/bin/redis.conf 文件
 ```sh
@@ -167,7 +229,7 @@ OK
 (error) WRONGPASS invalid username-password pair or user is disabled.
 ```
 
-### 4、设置端口
+#### 4、设置端口
 找到port，修改为想要的端口号  
 ```sh
 vim /usr/local/redis/bin/redis.conf
@@ -178,7 +240,7 @@ vim /usr/local/redis/bin/redis.conf
 port 6379
 ```
 
-### 5、允许远程访问  
+#### 5、允许远程访问  
 
 ```sh
 vim /usr/local/redis/bin/redis.conf
@@ -207,9 +269,9 @@ firewall-cmd --reload
 ```
 
 测试客户端连接成功  
-![](https://feny-blogs.oss-cn-shenzhen.aliyuncs.com/images/202312281328437.png)
+![](http://oss.feny.ink/images/202312281328437.png)
 
-### 6、服务操作命令 
+#### 6、服务操作命令 
 
 ```sh
 #启动redis服务
@@ -225,5 +287,13 @@ systemctl enable redis
 #停止开机自启动
 systemctl disable redis
 ```
+
+### 四、其他
+
+如果是阿里云服务器，可能还需要在服务器控制台安全组添加相应的端口才行
+
+<img src="http://oss.feny.ink/images/202312282141996.png" style="zoom: 50%;" /> 
+
+
 
 <!-- ## 四、Redis 集群部署 -->

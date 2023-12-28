@@ -10,7 +10,8 @@ export default navbar([
       "Java环境配置.md",
       "Node.js安装.md",
       "Redis 安装.md",
-      
+      "MySQL 安装.md",
+      "Nginx 安装.md",
     ],
   },
   {
