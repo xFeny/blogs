@@ -1,1 +1,0 @@
-import{_ as t}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as a,c as o,a as e,b as r}from"./app-AWJbACMg.js";const c={},s=e("h1",{id:"标题",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#标题","aria-hidden":"true"},"#"),r(" 标题")],-1),n=[s];function _(d,i){return a(),o("div",null,n)}const m=t(c,[["render",_],["__file","template.html.vue"]]);export{m as default};
