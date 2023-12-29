@@ -27,8 +27,12 @@ export default navbar([
     link: "/Docker/",
   },
   {
-    text: "杂谈",
-    link: "/杂谈/",
+    text: "教程",
+    link: "/教程/",
+  },
+  {
+    text: "杂项",
+    link: "/杂项/",
   },
   {
     text: '分类',
