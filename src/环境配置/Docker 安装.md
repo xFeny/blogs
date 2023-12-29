@@ -1,3 +1,12 @@
+---
+date: 2023-12-28
+icon: docker
+category:
+  - Docker
+tag:
+  - Docker
+---
+
 # Docker 安装
 
 ## 一、卸载系统之前的 Docker

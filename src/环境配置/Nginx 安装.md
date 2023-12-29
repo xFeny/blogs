@@ -1,5 +1,6 @@
 ---
 date: 2023-12-28
+icon: nginx
 category:
   - 环境配置
   - Nginx

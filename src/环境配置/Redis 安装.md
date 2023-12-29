@@ -1,6 +1,6 @@
 ---
 date: 2023-12-28
-# sidebar: false
+icon: Redis
 category:
   - Redis
   - 环境配置

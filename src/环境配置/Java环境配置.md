@@ -1,5 +1,7 @@
 ---
 date: 2023-12-25
+icon: java
+star: true
 category:
   - Java
   - 环境配置

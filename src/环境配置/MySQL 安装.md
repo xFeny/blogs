@@ -1,5 +1,7 @@
 ---
 date: 2023-12-28
+icon: mysql
+star: true
 category:
   - MySQL
   - 环境配置

@@ -1,5 +1,6 @@
 import { hopeTheme } from "vuepress-theme-hope";
 import navbar from "./navbar.js";
+import sidebar from "./sidebar.js";
 
 export default hopeTheme({
   hostname: "www.feny.ink",
@@ -9,21 +10,34 @@ export default hopeTheme({
     url: "https://www.feny.ink",
   },
 
-  iconAssets: "fontawesome-with-brands",
+  // 图标支持
+  iconAssets: "//at.alicdn.com/t/c/font_4393867_ped7m1yzhlk.css",
+  // 设置图标前缀
+  iconPrefix: "iconfont icon-",
 
   logo: "/logo.svg",
 
+  // 文档目录
   docsDir: "src",
 
+  // 页脚
   footer: '<a href="https://beian.miit.gov.cn" target="_blank">粤ICP备18117352号</a>',
 
+  // 是否显示页脚
   displayFooter: true,
 
+  // 导航栏
   navbar,
 
+  // 侧边栏
+  sidebar,
+
   blog: {
+    // sidebarDisplay: "always", 
     description: "一个默默无闻的后端开发者",
   },
+
+  // pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime", "PageView", "Word"],
 
   plugins: {
     blog: true,

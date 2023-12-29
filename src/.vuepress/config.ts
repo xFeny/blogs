@@ -4,10 +4,12 @@ import { searchProPlugin } from "vuepress-plugin-search-pro";
 
 export default defineUserConfig({
   base: "/",
+  // 端口号
+  port: 1000,
 
   lang: "zh-CN",
   title: "Feny 博客",
-  description: "Feny的个人博客",
+  description: "Feny 个人博客",
 
   theme,
 
@@ -31,4 +33,22 @@ export default defineUserConfig({
 
   // Enable it with pwa
   // shouldPrefetch: false,
+
+
+  //配置百度统计
+  head: [
+    [
+      'script', {},
+      `
+              var _hmt = _hmt || [];
+              (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?dfa689801ccd10bd283b50ea146430f3";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+              })();
+          `
+    ]
+  ],
+
 });

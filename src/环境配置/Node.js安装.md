@@ -1,5 +1,6 @@
 ---
 date: 2023-12-27
+icon: node
 category:
   - Node
   - 环境配置

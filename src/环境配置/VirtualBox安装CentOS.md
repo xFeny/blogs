@@ -1,5 +1,6 @@
 ---
 date: 2023-12-26
+icon: centos
 category:
   - Linux
   - 环境配置
