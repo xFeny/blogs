@@ -37,7 +37,7 @@ export default hopeTheme({
     description: "一个默默无闻的后端开发者",
   },
 
-  // pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime", "PageView", "Word"],
+  pageInfo: ["Author", "Date", "Original", "Category", "Tag", "ReadingTime", "Word", "PageView"],
 
   plugins: {
     blog: true,
