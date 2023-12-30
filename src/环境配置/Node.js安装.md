@@ -18,20 +18,20 @@ tag:
 Node.js官网：<https://nodejs.org/en>  
 Node.js中文网：<http://www.nodejs.com.cn/>  
 
-![](http://oss.feny.ink/images/202312281327821.png)
+![](http://oss.feny.ink/blogs/images/202312281327821.png)
 
 ### 二、安装
 （1）、下载好安装包后双击安装，点击 Next 显示Node.js的许可协议页面：  
-![](http://oss.feny.ink/images/202312281327327.png)  
+![](http://oss.feny.ink/blogs/images/202312281327327.png)  
 
 （2）、勾选“I accept the terms in the License Agreement”同意许可协议，并单击Next下一步，出现如下界面：  
-![](http://oss.feny.ink/images/202312281327420.png)  
+![](http://oss.feny.ink/blogs/images/202312281327420.png)  
 
 （3）、Node.js默认安装路径为“C:\Program Files\nodejs\”，你可以修改，在这里我改到了D盘，单击Next，出现安装模式及模块选择界面：  
-![](http://oss.feny.ink/images/202312281327732.png)  
+![](http://oss.feny.ink/blogs/images/202312281327732.png)  
 
 （4）、确认无误后，点击Install，开始安装：  
-![](http://oss.feny.ink/images/202312281327896.png)
+![](http://oss.feny.ink/blogs/images/202312281327896.png)
 
 （5）、安装完成，点击Finish即可
 
@@ -45,7 +45,7 @@ Node.js中文网：<http://www.nodejs.com.cn/>
 
 （7）、检测是否安装成功  
 
-![](http://oss.feny.ink/images/202312281327544.png)  
+![](http://oss.feny.ink/blogs/images/202312281327544.png)  
 
 ### 三、配置淘宝镜像
 1、查看当前镜像源  
@@ -142,16 +142,16 @@ npm ERR! You can rerun the command with `--loglevel=verbose` to see the logs in 
 
 **解决方案：**  
 找到安装node.js的文件夹 -右键-属性-安全，给用户完全控制的权限。  
-![](http://oss.feny.ink/images/202312281327606.png)  
-![](http://oss.feny.ink/images/202312281327924.png)  
+![](http://oss.feny.ink/blogs/images/202312281327606.png)  
+![](http://oss.feny.ink/blogs/images/202312281327924.png)  
 
 设置安后重新执行命令，安装成功 
 
-![](http://oss.feny.ink/images/202312281327068.png)  
+![](http://oss.feny.ink/blogs/images/202312281327068.png)  
 
 可以看到刚安装的 yarn 出现在自定义 npm 全局包下载路径中，问题解决  
 
-![](http://oss.feny.ink/images/202312281327908.png)  
+![](http://oss.feny.ink/blogs/images/202312281327908.png)  
 
 
 ## CentOS 下安装

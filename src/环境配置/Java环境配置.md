@@ -20,37 +20,37 @@ tag:
 ### 第二步 配置环境变量
 1. 首先找到jdk的安装目录，默认情况下在C:\Program Files\Java目录下  
 2. 然后我们点击桌面“我的电脑”右键“属性”：  
-![](http://oss.feny.ink/images/202312281326725.png)  
+![](http://oss.feny.ink/blogs/images/202312281326725.png)  
 
 3. 点击“高级系统设置”：  
-![](http://oss.feny.ink/images/202312281326801.png)  
+![](http://oss.feny.ink/blogs/images/202312281326801.png)  
 
 4. 点击“环境变量”：  
-![](http://oss.feny.ink/images/202312281326559.png)  
+![](http://oss.feny.ink/blogs/images/202312281326559.png)  
 
 5. 在“系统变量”中新建一个，变量名：JAVA_HOME，变量值为JDK的安装路径。  
-![](http://oss.feny.ink/images/202312281326919.png)  
+![](http://oss.feny.ink/blogs/images/202312281326919.png)  
 
 6. 新建一个CLASSPATH路径，输入：
 
 ```
 .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar
 ```
-![](http://oss.feny.ink/images/202312281326522.png)  
+![](http://oss.feny.ink/blogs/images/202312281326522.png)  
 
 7. 找到path变量：  
-![](http://oss.feny.ink/images/202312281326042.png)  
+![](http://oss.feny.ink/blogs/images/202312281326042.png)  
 
 8. 点击编辑，然后选择新建，加入下面变量值，最后点确定:  
 
 ```
 %JAVA_HOME%\bin
 ```
-![](http://oss.feny.ink/images/202312281326206.png)  
+![](http://oss.feny.ink/blogs/images/202312281326206.png)  
 
 9. 在cmd中输入javac，出现以下页面，就可以了  
 
-![](http://oss.feny.ink/images/202312281326935.png)
+![](http://oss.feny.ink/blogs/images/202312281326935.png)
 
 如果运行没有出任何问题的话，那么表示JDK已经配置成功了！  
 

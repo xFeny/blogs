@@ -23,11 +23,11 @@ Redis可视化工具：<https://gitee.com/qishibo/AnotherRedisDesktopManager/rel
 
 将下载的压缩包解压到一个文件夹中
 
-![img](http://oss.feny.ink/images/202312281802988.png) 
+![img](http://oss.feny.ink/blogs/images/202312281802988.png) 
 
 ### 二、启动临时服务
 
-<img src="http://oss.feny.ink/images/202312281803809.png" alt="img" style="zoom: 80%;" />  
+<img src="http://oss.feny.ink/blogs/images/202312281803809.png" alt="img" style="zoom: 80%;" />  
 
 ```sh
 redis-server.exe redis.windows.conf
@@ -35,11 +35,11 @@ redis-server.exe redis.windows.conf
 
 > **备注：** 通过这个命令，会创建Redis临时服务，不会在window Service列表出现Redis服务名称和状态，此窗口关闭，服务会自动关闭。
 
-<img src="http://oss.feny.ink/images/202312281806314.png" alt="img" style="zoom: 80%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312281806314.png" alt="img" style="zoom: 80%;" /> 
 
 打开另一个cmd窗口，客户端调用：redis-cli.exe -h 127.0.0.1 -p 6379
 
-<img src="http://oss.feny.ink/images/202312281807495.png" alt="img" style="zoom: 80%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312281807495.png" alt="img" style="zoom: 80%;" /> 
 
 
 
@@ -51,11 +51,11 @@ redis-server.exe redis.windows.conf
 redis-server --service-install redis.windows.conf
 ```
 
-<img src="http://oss.feny.ink/images/202312281808908.png" alt="img" style="zoom:80%;" />  
+<img src="http://oss.feny.ink/blogs/images/202312281808908.png" alt="img" style="zoom:80%;" />  
 
 win+r -> services.msc可以看到服务安装成功
 
-<img src="http://oss.feny.ink/images/202312281809830.png" alt="img" style="zoom:80%;" />   
+<img src="http://oss.feny.ink/blogs/images/202312281809830.png" alt="img" style="zoom:80%;" />   
 
 ::: tip 相关启动命令
 
@@ -269,7 +269,7 @@ firewall-cmd --reload
 ```
 
 测试客户端连接成功  
-![](http://oss.feny.ink/images/202312281328437.png)
+![](http://oss.feny.ink/blogs/images/202312281328437.png)
 
 #### 6、服务操作命令 
 
@@ -292,7 +292,7 @@ systemctl disable redis
 
 如果是阿里云服务器，可能还需要在服务器控制台安全组添加相应的端口才行
 
-<img src="http://oss.feny.ink/images/202312282141996.png" style="zoom: 50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282141996.png" style="zoom: 50%;" /> 
 
 
 

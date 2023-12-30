@@ -66,7 +66,7 @@ success
 
 ### 第五步，进入 Nacos 管理界面  
 打开浏览器，地址栏输入：<http://localhost:8848/nacos/>  
-![](http://oss.feny.ink/images/202312281325743.png)
+![](http://oss.feny.ink/blogs/images/202312281325743.png)
 
 ## 二、Nacos集群配置
 
@@ -79,7 +79,7 @@ Nacos 因为选举算法的特殊性，要求最少三个节点才能组成一�
 
 使用任意 MySQL 客户端工具连接到 MySQL 数据库服务器，创建名为nacos的数据库，之后使用 MySQL 客户端执
 行 nacos/conf/mysql-schema.sql 文件，完成建表工作。  
-![](http://oss.feny.ink/images/202312281325914.png)
+![](http://oss.feny.ink/blogs/images/202312281325914.png)
 
 ### 第四步、配置 Nacos 数据源  
 
@@ -143,8 +143,8 @@ tail -f /usr/local/nacos/logs/start.out
 ```
 
 当确保所有节点均启动成功，打开浏览器访问对应的IP地址nacos后台，便可看到集群列表  
-![](http://oss.feny.ink/images/202312281325509.png)
-![](http://oss.feny.ink/images/202312281325256.png)  
+![](http://oss.feny.ink/blogs/images/202312281325509.png)
+![](http://oss.feny.ink/blogs/images/202312281325256.png)  
 
 ## 三、Nacos 开启身份认证
 Nacos自2.2.2版本开始，在未开启鉴权时，默认控制台将不需要登录即可访问，同时在控制台中给予提示，提醒用户当前集群未开启鉴权。  
@@ -179,13 +179,13 @@ System.out.println(Base64.encode(RandomUtil.randomString(32)));
 ### （1）、新建项目
 
 在 IntelliJ IDEA 新建项目  
-![](http://oss.feny.ink/images/202312281326203.png)  
+![](http://oss.feny.ink/blogs/images/202312281326203.png)  
 
 选择Spring Initializr-->选Custom，填写阿里 <http://start.aliyun.com>，点击Next进行下一步  
-![](http://oss.feny.ink/images/202312281326235.png)  
+![](http://oss.feny.ink/blogs/images/202312281326235.png)  
 
 依赖选择如下：    
-![](http://oss.feny.ink/images/202312281326925.png)  
+![](http://oss.feny.ink/blogs/images/202312281326925.png)  
 选择完成后点击 Next，项目名，存放路径按自己喜好设置好，点击Finish完成  
 
 ### （2）、服务注册到 Nacos
@@ -214,6 +214,6 @@ spring:
 ### （3）、启动服务
 服务启动成功后，在Nacos控制台--服务管理--服务列表中看到有服务，表示服务注册成功  
 
-![](http://oss.feny.ink/images/202312281326377.png)  
+![](http://oss.feny.ink/blogs/images/202312281326377.png)  
 
 ## 四、服务间请求

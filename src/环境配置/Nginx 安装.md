@@ -19,7 +19,7 @@ tag:
 
 选择最新的Stable version（稳定版本）下载到本地
 
-<img src="http://oss.feny.ink/images/202312281742294.png" alt="image-20231228174212239" style="zoom:50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312281742294.png" alt="image-20231228174212239" style="zoom:50%;" /> 
 
 下载完成后，解压放入本地非中文的文件夹中
 
@@ -35,9 +35,9 @@ tag:
 start nginx
 ```
 
-<img src="http://oss.feny.ink/images/202312281745994.png" alt="image-20231228174525951" style="zoom:50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312281745994.png" alt="image-20231228174525951" style="zoom:50%;" /> 
 
-<img src="http://oss.feny.ink/images/202312281745583.png" alt="image-20231228174542552" style="zoom:50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312281745583.png" alt="image-20231228174542552" style="zoom:50%;" /> 
 
 ::: tip 相关启动命令
 
@@ -63,7 +63,7 @@ nginx -s quit	完整有序的停止nginx
 
 浏览器输入在浏览器输入：**http://localhost:端口** ， 默认80端口直接<http://localhost>，能看到界面说明启动成功。
 
-<img src="http://oss.feny.ink/images/202312281755015.png" alt="image-20231228175540971" style="zoom:50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312281755015.png" alt="image-20231228175540971" style="zoom:50%;" /> 
 
 ## CentOS 下安装
 
@@ -155,7 +155,7 @@ firewall-cmd --reload
 
 浏览器输入服务器IP地址，如下图所示即表示成功。
 
-<img src="http://oss.feny.ink/images/202312281705155.png" alt="image-20231228170558106" style="zoom:50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312281705155.png" alt="image-20231228170558106" style="zoom:50%;" /> 
 
 ### 六、设置开机启动
 
@@ -231,4 +231,4 @@ systemctl list-units --type=service
 
 如果是阿里云服务器，可能还需要在服务器控制台安全组添加相应的端口才行
 
-<img src="http://oss.feny.ink/images/202312282140114.png" style="zoom: 50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282140114.png" style="zoom: 50%;" /> 

@@ -32,7 +32,7 @@ tag:
 rpm -qa|grep mariadb
 ```
 
-![](http://oss.feny.ink/images/202312281955470.png) 
+![](http://oss.feny.ink/blogs/images/202312281955470.png) 
 
 卸载mariadb
 
@@ -46,7 +46,7 @@ rpm -e --nodeps mariadb-libs-5.5.68-1.el7.x86_64
 find / -name mysql
 ```
 
-![](http://oss.feny.ink/images/202312281957856.png) 
+![](http://oss.feny.ink/blogs/images/202312281957856.png) 
 
 删除文件
 
@@ -61,15 +61,15 @@ rm -rf /usr/lib64/mysql
 
 **Select Version** 根据个人选择，**Select Operating System** 选择 **Red Hat Enterprise Linux Oracle Linux** ，**Select OS Version**  根据个人服务器版本选择，CentOS 7 就选择 7 的，CentOS8 就选 8，以此类推。
 
-<img src="http://oss.feny.ink/images/202312282000456.png" alt="image-20231228200006400" style="zoom:80%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282000456.png" alt="image-20231228200006400" style="zoom:80%;" /> 
 
 然后找到对应安装包，本教程选择 RPM Bundle，点击Download
 
-<img src="http://oss.feny.ink/images/202312282035687.png" alt="image-20231228203500646" style="zoom: 67%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282035687.png" alt="image-20231228203500646" style="zoom: 67%;" /> 
 
 复制下载地址
 
-<img src="http://oss.feny.ink/images/202312282002439.png" alt="image-20231228200258388" style="zoom:67%;" />  
+<img src="http://oss.feny.ink/blogs/images/202312282002439.png" alt="image-20231228200258388" style="zoom:67%;" />  
 
 到 /usr/local 目录下，创建mysql目录，并进入mysql文件夹
 
@@ -138,7 +138,7 @@ mysql-community-libs-8.0.35-1.el7.x86_64
 vim /etc/my.cnf
 ```
 
-<img src="http://oss.feny.ink/images/202312282057089.png" alt="image-20231228205705043" style="zoom:67%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282057089.png" alt="image-20231228205705043" style="zoom:67%;" /> 
 
 ::: tip 
 
@@ -176,7 +176,7 @@ systemctl enable mysqld
 cat /var/log/mysqld.log | grep password
 ```
 
-<img src="http://oss.feny.ink/images/202312282104750.png" alt="image-20231228210457698" style="zoom:80%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282104750.png" alt="image-20231228210457698" style="zoom:80%;" /> 
 
 使用查看到的密码登录
 
@@ -184,7 +184,7 @@ cat /var/log/mysqld.log | grep password
 mysql -uroot -p
 ```
 
-<img src="http://oss.feny.ink/images/202312282106935.png" alt="image-20231228210644903" style="zoom:80%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282106935.png" alt="image-20231228210644903" style="zoom:80%;" /> 
 
 #### 修改密码
 
@@ -196,7 +196,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '你要�
 
 通过 exit 命令退出 MySQL，然后通过新密码再次登陆
 
-<img src="http://oss.feny.ink/images/202312282111702.png" alt="image-20231228211136661" style="zoom: 80%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282111702.png" alt="image-20231228211136661" style="zoom: 80%;" /> 
 
 ### 六、开放远程访问
 
@@ -208,7 +208,7 @@ grant all privileges on *.* to 'root'@'%' with grant option;
 flush privileges;
 ```
 
-![](http://oss.feny.ink/images/202312282114411.png) 
+![](http://oss.feny.ink/blogs/images/202312282114411.png) 
 
 ### 七、配置防火墙
 
@@ -226,7 +226,7 @@ firewall-cmd --reload
 
 #### 在Navicat上测试连接
 
-<img src="http://oss.feny.ink/images/202312282118304.png" alt="image-20231228211827250" style="zoom:50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282118304.png" alt="image-20231228211827250" style="zoom:50%;" /> 
 
 
 
@@ -234,4 +234,4 @@ firewall-cmd --reload
 
 如果是阿里云服务器，可能还需要在服务器控制台安全组添加相应的端口才行
 
-<img src="http://oss.feny.ink/images/202312282137797.png" style="zoom: 50%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202312282137797.png" style="zoom: 50%;" /> 
