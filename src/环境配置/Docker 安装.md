@@ -39,12 +39,18 @@ yum install -y yum-utils
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
+推荐设置为阿里源
+
+```sh
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+```
+
 ## 三、安装docker
 
 执行以下命令安装docker：
 
 ```sh
-yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 ## 四、启动 Docker

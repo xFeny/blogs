@@ -60,17 +60,17 @@ tag:
 ### 方法一：手动解压JDK的压缩包，然后设置环境变量
 #### 1.在/usr/目录下创建java目录 
 ```sh
-[root@localhost ~]# mkdir/usr/java
-[root@localhost ~]# cd /usr/java
+mkdir/usr/java
+cd /usr/java
 ```
 #### 2.下载，然后解压
 ```sh
-[root@localhost java]# curl -O http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz 
-[root@localhost java]# tar -zxvf jdk-7u79-linux-x64.tar.gz
+wget http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz 
+tar -zxvf jdk-7u79-linux-x64.tar.gz
 ```
 #### 3.设置环境变量
 ```sh
-[root@localhost java]# vim /etc/profile
+vim /etc/profile
 ```
 在最后面添加如下内容：  
 ```sh
@@ -82,7 +82,7 @@ export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 ```
 让修改生效：  
 ```sh
-[root@localhost java]# source /etc/profile
+source /etc/profile
 ```
 #### 4.验证
 ```sh
@@ -128,14 +128,14 @@ java-1.8.0-openjdk-src.x86_64 : OpenJDK 8 Source Bundle
 我们这里安装1.8版本
 
 ```sh
-[root@localhost ~]# yum -y install java-1.8.0-openjdk-devel.x86_64
+yum -y install java-1.8.0-openjdk-devel.x86_64
 ```
-安装完之后，默认的安装目录是在: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64  
+安装完之后，默认的安装目录是在: `/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64 `
 
 #### 3.设置环境变量  
 
 ```sh
-[root@localhost java]# vim /etc/profile
+vim /etc/profile
 ```
 
 在最后面添加如下内容：    
@@ -149,14 +149,14 @@ export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 ```
 让修改生效：  
 ```sh
-[root@localhost java]# source /etc/profile
+source /etc/profile
 ```
 
 #### 4.验证  
 
 ```sh
 [root@localhost java]# java -version
-java version "1.7.0_79"
-Java(TM) SE Runtime Environment (build 1.7.0_79-b15)
-Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)
+openjdk version "1.8.0_392"
+OpenJDK Runtime Environment (build 1.8.0_392-b08)
+OpenJDK 64-Bit Server VM (build 25.392-b08, mixed mode)
 ```

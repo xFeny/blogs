@@ -33,8 +33,7 @@ export default hopeTheme({
   sidebar,
 
   blog: {
-    // sidebarDisplay: "always", 
-    description: "一个默默无闻的后端开发者",
+    description: "万千默默无闻码农中的一个",
   },
 
   pageInfo: ["Author", "Date", "Original", "Category", "Tag", "ReadingTime", "Word", "PageView"],

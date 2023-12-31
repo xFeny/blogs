@@ -1,4 +1,5 @@
 ---
+
 author: Feny
 date: 2023-12-28
 icon: nginx
@@ -233,3 +234,77 @@ systemctl list-units --type=service
 如果是阿里云服务器，可能还需要在服务器控制台安全组添加相应的端口才行
 
 <img src="http://oss.feny.ink/blogs/images/202312282140114.png" style="zoom: 50%;" /> 
+
+## Docker 下安装
+
+拉取镜像
+
+```sh
+docker pull nginx
+```
+
+启动 `nginx`
+
+```sh
+docker run --name=nginx -p 80:80 -d nginx
+```
+
+创建挂载目录
+
+```sh
+mkdir -p /data/nginx /data/nginx/conf /data/nginx/html /data/nginx/logs
+```
+
+将容器中的`nginx.conf`文件和`conf.d`文件夹复制到宿主机
+
+```sh
+# 将容器nginx.conf文件复制到宿主机
+docker cp nginx:/etc/nginx/nginx.conf /data/nginx/conf/nginx.conf
+# 将容器conf.d文件夹下内容复制到宿主机
+docker cp nginx:/etc/nginx/conf.d /data/nginx/conf/conf.d
+# 将容器中的html文件夹复制到宿主机
+docker cp nginx:/usr/share/nginx/html /data/nginx/html
+```
+
+停止 `nginx`
+
+```sh
+docker stop nginx
+```
+
+删除 `nginx`
+
+```sh
+docker rm nginx
+```
+
+再次启动容器并作目录挂载
+
+```sh
+docker run -idt --name=nginx -p 80:80 -p 443:443 --restart=always --privileged=true \
+-v /data/nginx/html:/usr/share/nginx/html \
+-v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+-v /data/nginx/conf/conf.d/:/etc/nginx/conf.d/ \
+-v /data/nginx/logs:/var/log/nginx \
+nginx
+```
+
+**命令含义**
+
+```sh
+docker run  在docker中启动一个容器实例
+		-itd
+            i：以交互模式运行容器，通常与 -t 同时使用；
+            t：为容器重新分配一个伪输入终端，通常与 -i 同时使用；
+            d：表示后台启动
+		-p 80:80  容器与主机映射端口为，主机80，容器80
+		--name nginx  容器运行后的名称
+		--restart=always  自动启动容器
+		-v /data/nginx/html:/usr/share/nginx/html  挂载nginx静态文件
+		-v /data/nginx/conf/nginx.conf  挂载nginx.conf配置文件
+		-v /data/nginx/conf/conf.d/  挂载nginx配置文件
+		-v /data/nginx/logs:/var/log/nginx  挂载nginx日志文件
+		nginx	运行的版本
+```
+
+部署完成！！！

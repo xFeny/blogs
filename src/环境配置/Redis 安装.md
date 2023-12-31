@@ -298,3 +298,80 @@ systemctl disable redis
 
 
 <!-- ## 四、Redis 集群部署 -->
+
+
+
+## Docker 下安装
+
+### 1、拉取 redis 镜像
+
+```sh
+docker pull redis
+```
+
+### 2、创建需要挂载的文件夹
+
+```sh
+mkdir -p /data/redis/conf /data/redis/data
+```
+
+### 3、配置 redis.conf
+
+进入`/data/redis/conf`下载配置文件`redis.conf`
+
+```sh
+cd /data/redis/conf
+wget http://download.redis.io/redis-stable/redis.conf
+```
+
+修改以下配置：
+
+```sh
+# 使redis可以外部访问
+# bind 127.0.0.1 -::1
+bind 0.0.0.0
+# 去出requirepass 前面的 # ，设置密码
+requirepass qwe123456
+# redis持久化，默认是no
+appendonly yes
+```
+
+### 4、创建容器
+
+```sh
+docker run -itd --restart=always --name redis --privileged=true -p 6379:6379 \
+-v /data/redis/conf/redis.conf:/etc/redis/redis.conf \
+-v /data/redis/data:/data \
+redis \
+redis-server /etc/redis/redis.conf
+```
+
+参数解析
+
+```sh
+--restart=always 开机启动，失败也会一直重启；
+-p 6379:6379 将宿主机6379端口与容器内6379端口进行映射；
+-v 将宿主机目录或文件与容器内目录或文件进行挂载映射；
+-itd
+ 	i：以交互模式运行容器，通常与 -t 同时使用；
+ 	t：为容器重新分配一个伪输入终端，通常与 -i 同时使用；
+ 	d：表示后台启动redis；
+--name 给容器命名；
+redis-server /etc/redis/redis.conf 以配置文件启动redis，加载容器内的conf文件；
+```
+
+查看启动状态
+
+```sh
+docker ps -a | grep redis
+```
+
+查看容器日志
+
+```sh
+docker logs -f  redis
+```
+
+<img src="http://oss.feny.ink/blogs/images/202312311800306.png" alt="image-20231231180053245" style="zoom:80%;" /> 
+
+启动成功完成安装！！！
