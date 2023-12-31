@@ -309,16 +309,16 @@ docker run -p 3306:3306 --name mysql \
 
 ```sh
 docker run  在docker中启动一个容器实例
-		-d  该容器在后台运行
-		-p 3306:3306  容器与主机映射端口为，主机3306，容器3306
-		--name mysql  容器运行后的名称
-		-v /data/mysql/log:/var/log/mysql  挂载mysql的日志文件
-		-v /data/mysql/data:/var/lib/mysql  挂载mysql数据库文件的存放路径
-		-v /data/mysql/conf:/etc/mysql/conf.d 
-        -e MYSQL_ROOT_PASSWORD=root	设置当前mysql实例的密码为root
-        --restart=always  自动启动容器
-		mysql:8.0	需要运行的容器名称以及版本号
-		--lower-case-table-names=1 不区分大小写
+    -d  该容器在后台运行
+    -p 3306:3306  容器与主机映射端口为，主机3306，容器3306
+    --name mysql  容器运行后的名称
+    -v /data/mysql/log:/var/log/mysql  挂载mysql的日志文件
+    -v /data/mysql/data:/var/lib/mysql  挂载mysql数据库文件的存放路径
+    -v /data/mysql/conf:/etc/mysql/conf.d 
+    -e MYSQL_ROOT_PASSWORD=root	设置当前mysql实例的密码为root
+    --restart=always  自动启动容器
+    mysql:8.0	需要运行的容器名称以及版本号
+    --lower-case-table-names=1 不区分大小写
 ```
 
 查看`mysql`进程`STATUS`状态是否正常

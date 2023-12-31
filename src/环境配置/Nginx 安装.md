@@ -252,7 +252,7 @@ docker run --name=nginx -p 80:80 -d nginx
 创建挂载目录
 
 ```sh
-mkdir -p /data/nginx /data/nginx/conf /data/nginx/html /data/nginx/logs
+mkdir -p /data/nginx/conf /data/nginx/html /data/nginx/logs
 ```
 
 将容器中的`nginx.conf`文件和`conf.d`文件夹复制到宿主机

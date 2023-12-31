@@ -327,10 +327,10 @@ wget http://download.redis.io/redis-stable/redis.conf
 修改以下配置：
 
 ```sh
-# 使redis可以外部访问
-# bind 127.0.0.1 -::1
+# 使redis可以远程访问
+# 找到 bind 127.0.0.1 -::1 修改为下面的内容
 bind 0.0.0.0
-# 去出requirepass 前面的 # ，设置密码
+# 去除requirepass 前面的 # ，设置密码
 requirepass qwe123456
 # redis持久化，默认是no
 appendonly yes
