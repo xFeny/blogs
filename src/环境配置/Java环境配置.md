@@ -13,10 +13,25 @@ tag:
 
 # Java JDK环境配置
 
+## Oracle 免登录下载JDK
+
+Oracle JDK下载地址：<https://www.oracle.com/java/technologies/downloads/>
+
+打开JDK下载页，找到需要的JDK版本，在弹出窗中勾选协议，然后鼠标右键复制地址，即可下载
+
+<img src="http://oss.feny.ink/blogs/images/202401011344311.png" alt="image-20240101134453251" style="zoom:50%;" /> 
+
+
+
 ## Windows 下安装
 
 ### 第一步 下载JDK并安装
-下载好JDK exe文件直接双击，一直点下一步即可，安装成功后，我们开始进行java的环境变量配置
+
+Oracle JDK下载地址：<https://www.oracle.com/java/technologies/downloads/>
+
+OpenJDK下载地址：<https://jdk.java.net/>
+
+下载好`JDK exe`文件直接双击，一直点下一步即可，安装成功后，我们开始进行java的环境变量配置
 
 ### 第二步 配置环境变量
 1. 首先找到jdk的安装目录，默认情况下在C:\Program Files\Java目录下  
@@ -57,16 +72,25 @@ tag:
 
 ## Centos 下安装
 
-### 方法一：手动解压JDK的压缩包，然后设置环境变量
-#### 1.在/usr/目录下创建java目录 
+### 方法一：手动解压JDK安装
+
+OpenJDK官网：<https://jdk.java.net>
+
+<img src="http://oss.feny.ink/blogs/images/202401011411068.png" alt="image-20240101141132019" style="zoom:50%;" /> 
+
+选择想要的版本，复制地址
+
+<img src="http://oss.feny.ink/blogs/images/202401011413817.png" alt="image-20240101141335760" style="zoom:50%;" /> 
+
+#### 1.在/usr/目录下创建java目录
 ```sh
-mkdir/usr/java
-cd /usr/java
+mkdir /usr/java && cd /usr/java
 ```
 #### 2.下载，然后解压
 ```sh
-wget http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz 
-tar -zxvf jdk-7u79-linux-x64.tar.gz
+# 下载
+wget https://download.java.net/openjdk/jdk8u43/ri/openjdk-8u43-linux-x64.tar.gz
+tar -zxvf openjdk-8u43-linux-x64.tar.gz
 ```
 #### 3.设置环境变量
 ```sh
@@ -75,7 +99,8 @@ vim /etc/profile
 在最后面添加如下内容：  
 ```sh
 #set java environment
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.75.x86_64
+# java-se-8u43-ri 为tar解压时的目录名
+export JAVA_HOME=/usr/java/java-se-8u43-ri
 export JRE_HOME=$JAVA_HOME/jre
 export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
 export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
@@ -86,53 +111,22 @@ source /etc/profile
 ```
 #### 4.验证
 ```sh
-[root@localhost java]# java -version
-java version "1.7.0_79"
-Java(TM) SE Runtime Environment (build 1.7.0_79-b15)
-Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)
+java -version
 ```
-### 方法二：用yum安装JDK(CentOS)
-#### 1.查看yum库中都有哪些jdk版本  
+![image-20240101155549673](http://oss.feny.ink/blogs/images/202401011555713.png) 
+
+安装完成！！！
+
+### 方法二：用yum安装JDK
+
+#### 1、yum 安装 openjdk
 
 ```sh
-[root@localhost ~]# yum search java|grep jdk
-java-1.6.0-openjdk.x86_64 : OpenJDK Runtime Environment
-java-1.6.0-openjdk-demo.x86_64 : OpenJDK Demos
-java-1.6.0-openjdk-devel.x86_64 : OpenJDK Development Environment
-java-1.6.0-openjdk-javadoc.x86_64 : OpenJDK API Documentation
-java-1.6.0-openjdk-src.x86_64 : OpenJDK Source Bundle
-java-1.7.0-openjdk.x86_64 : OpenJDK Runtime Environment
-java-1.7.0-openjdk-accessibility.x86_64 : OpenJDK accessibility connector
-java-1.7.0-openjdk-demo.x86_64 : OpenJDK Demos
-java-1.7.0-openjdk-devel.x86_64 : OpenJDK Development Environment
-java-1.7.0-openjdk-headless.x86_64 : The OpenJDK runtime environment without
-java-1.7.0-openjdk-javadoc.noarch : OpenJDK API Documentation
-java-1.7.0-openjdk-src.x86_64 : OpenJDK Source Bundle
-java-1.8.0-openjdk.x86_64 : OpenJDK Runtime Environment 8
-java-1.8.0-openjdk.i686 : OpenJDK 8 Runtime Environment
-java-1.8.0-openjdk-accessibility.i686 : OpenJDK accessibility connector
-java-1.8.0-openjdk-accessibility.x86_64 : OpenJDK accessibility connector
-java-1.8.0-openjdk-demo.i686 : OpenJDK Demos 8
-java-1.8.0-openjdk-demo.x86_64 : OpenJDK 8 Demos
-java-1.8.0-openjdk-devel.i686 : OpenJDK Development Environment 8
-java-1.8.0-openjdk-devel.x86_64 : OpenJDK 8 Development Environment
-java-1.8.0-openjdk-headless.x86_64 : OpenJDK Headless Runtime Environment 8
-java-1.8.0-openjdk-headless.i686 : OpenJDK 8 Headless Runtime Environment
-java-1.8.0-openjdk-javadoc.noarch : OpenJDK 8 API documentation
-java-1.8.0-openjdk-javadoc-zip.noarch : OpenJDK 8 API documentation compressed
-java-1.8.0-openjdk-src.i686 : OpenJDK Source Bundle 8
-java-1.8.0-openjdk-src.x86_64 : OpenJDK 8 Source Bundle
+yum -y install java-1.8.0-openjdk
 ```
-#### 2.选择版本，进行安装  
+安装完之后，默认的安装目录是在: `/usr/lib/jvm/java-1.8.0-openjdk `
 
-我们这里安装1.8版本
-
-```sh
-yum -y install java-1.8.0-openjdk-devel.x86_64
-```
-安装完之后，默认的安装目录是在: `/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64 `
-
-#### 3.设置环境变量  
+#### 2.设置环境变量  
 
 ```sh
 vim /etc/profile
@@ -142,7 +136,7 @@ vim /etc/profile
 
 ```sh
 #set java environment
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64（修改为你自己所对应的版本）
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 export JRE_HOME=$JAVA_HOME/jre
 export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
 export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
@@ -152,11 +146,12 @@ export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 source /etc/profile
 ```
 
-#### 4.验证  
+#### 3.验证  
 
 ```sh
-[root@localhost java]# java -version
-openjdk version "1.8.0_392"
-OpenJDK Runtime Environment (build 1.8.0_392-b08)
-OpenJDK 64-Bit Server VM (build 25.392-b08, mixed mode)
+java -version
 ```
+
+![image-20240101155652031](http://oss.feny.ink/blogs/images/202401011556060.png) 
+
+安装完成！！！

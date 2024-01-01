@@ -1,4 +1,5 @@
 ---
+title: Docker 安装
 date: 2023-12-28
 author: Feny
 icon: docker
@@ -8,9 +9,7 @@ tag:
   - Docker
 ---
 
-# Docker 安装
-
-## 一、卸载系统之前的 Docker
+卸载系统之前的 Docker
 
 这步也算是检查，之前没装docker，也就没有东西可被删除
 
@@ -24,8 +23,6 @@ yum remove docker \
                   docker-logrotate \
                   docker-engine
 ```
-
-## 二、设置安装地址
 
 安装`yum-utils`软件包
 
@@ -45,31 +42,17 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
-## 三、安装docker
-
 执行以下命令安装docker：
 
 ```sh
 yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-## 四、启动 Docker
-
 启动 Docker
 
 ```sh
 systemctl start docker
 ```
-
-通过运行镜像来验证Docker Engine安装是否成功
-
-```sh
-docker run hello-world
-```
-
-此命令下载测试映像并在容器中运行它。当容器运行时，它会打印一条确认消息并退出。
-
-## 五、设置 Docker 开机自启动
 
 执行以下命令设置 Docker 开机自启动：
 
@@ -79,7 +62,7 @@ systemctl enable docker
 
 至此，docker安装完成！
 
-## 七、附录（Docker的常用命令）
+## Docker的常用命令
 
 
 

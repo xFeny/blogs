@@ -16,7 +16,7 @@ tag:
 ## Windows 下安装
 
 ### 一、下载
-Node.js官网：<https://nodejs.org/en>  
+Node.js官网：<https://nodejs.org/en>
 Node.js中文网：<http://www.nodejs.com.cn/>  
 
 ![](http://oss.feny.ink/blogs/images/202312281327821.png)
@@ -159,31 +159,44 @@ npm ERR! You can rerun the command with `--loglevel=verbose` to see the logs in 
 
 ### 一、下载安装 Node.js
 
-官网找到想要安装的版本：<https://nodejs.org/download/release/>  
+Node.js官网：<https://nodejs.org/en>
 
-若wget未安装，先安装   
+Node.js 所有发布版本：<https://nodejs.org/download/release/>  
+
+<img src="http://oss.feny.ink/blogs/images/202401011243516.png" alt="image-20240101124349466" style="zoom:50%;" /> 
+
+点击`Other Downloads`
+
+<img src="http://oss.feny.ink/blogs/images/202401011226404.png" alt="image-20240101122618350" style="zoom: 50%;" /> 
+
+鼠标右键复制链接
+
+<img src="http://oss.feny.ink/blogs/images/202401011234911.png" style="zoom:50%;" /> 
+
+若`wget`未安装，先安装   
 ```sh
 yum install -y wget
 ```
 
-下载 Node 解压：  
+下载 `Node` 解压：  
 ```sh
 # 可以修改为你想要的 Node 安装路劲
 cd /usr/local/
-wget https://nodejs.org/download/release/latest-v18.x/node-v18.19.0-linux-x64.tar.gz
-tar -xvf node-v18.19.0-linux-x64.tar.gz
+wget https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-x64.tar.xz
+tar -xvf node-v20.10.0-linux-x64.tar.xz
 ```
 
 ### 二、配置环境变量 
 
-修改/etc/profile文件  
+修改`/etc/profile`文件  
 ```sh
 vim /etc/profile
 ```
 
-在profile文件末尾加入下面内容，并保存  
+在`profile`文件末尾加入下面内容，并保存  
 ```sh
-export NODEJS=/usr/local/node-v18.19.0-linux-x64
+# set Node.js environment
+export NODEJS=/usr/local/node-v20.10.0-linux-x64
 export PATH=$PATH:$NODEJS/bin
 ```
 
@@ -196,9 +209,9 @@ source /etc/profile
 建立软连接  
 ```sh
 # 建立 node 软链接
-ln -s /usr/local/node-v18.19.0-linux-x64/bin/node /usr/bin
+ln -s /usr/local/node-v20.10.0-linux-x64/bin/node /usr/bin
 # 建立 npm 软链接
-ln -s /usr/local/node-v18.19.0-linux-x64/bin/npm /usr/bin
+ln -s /usr/local/node-v20.10.0-linux-x64/bin/npm /usr/bin
 ```
 
 验证是否安装成功
@@ -233,9 +246,9 @@ node: /lib64/libstdc++.so.6: version `CXXABI_1.3.9' not found (required by node)
 node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by node)
 node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by node)
 ```
-**问题原因：** Node从v18开始不再支持CentOS 7，而CentOS 7的 GLIBC 版本过低，造成报错  
+**问题原因：** `Node`从`v18`开始不再支持`CentOS 7`，而`CentOS 7`的 `GLIBC` 版本过低，造成报错  
 
-查看GLIBC版本：  
+查看`GLIBC`版本：  
 ```sh
 ldd --version
 ```
@@ -244,12 +257,12 @@ ldd --version
 
 **解决办法：** 
 
-①、升级bison  
+①、升级`bison `
 ```sh
 yum -y install bison
 ```
 
-②、升级 gcc
+②、升级 `gcc`
 
 ```sh
 # 安装devtoolset-8-gcc
@@ -268,7 +281,7 @@ echo "source /opt/rh/devtoolset-8/enable" >> /etc/profile
 source /etc/profile
 ```
 
-③、升级make
+③、升级`make`
 ```sh
 # 下载并解压安装包
 wget https://ftp.gnu.org/gnu/make/make-4.3.tar.gz --no-check-certificate
@@ -287,7 +300,7 @@ mv make make.bak
 ln -sv /usr/local/make/bin/make /usr/bin/make
 ```
 
-④、升级 libstdc++  
+④、升级 `libstdc++`  
 ```sh
 cd
 yum whatprovides libstdc++.so.6
@@ -306,7 +319,7 @@ rm -f libstdc++.so.6
 ln -s libstdc++.so.6.0.26 libstdc++.so.6
 ```
 
-⑤、更新 glibc  
+⑤、更新 `glibc`  
 ```sh
 cd
 wget http://ftp.gnu.org/gnu/glibc/glibc-2.28.tar.gz
@@ -320,7 +333,7 @@ cd glibc-2.28/ && mkdir build  && cd build
 make
 make install
 ```
-make安装耗时比较久，需耐心等待完成
+`make`安装耗时比较久，需耐心等待完成
 
 ⑥、查看版本  
 ```sh

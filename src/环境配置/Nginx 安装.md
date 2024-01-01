@@ -237,11 +237,19 @@ systemctl list-units --type=service
 
 ## Docker 下安装
 
-拉取镜像
+### 拉取镜像
 
 ```sh
 docker pull nginx
 ```
+
+### 创建挂载目录
+
+```sh
+mkdir -p /data/nginx/conf /data/nginx/conf/conf.d /data/nginx/logs /data/nginx/html
+```
+
+### 复制 nginx 配置文件
 
 启动 `nginx`
 
@@ -249,21 +257,15 @@ docker pull nginx
 docker run --name=nginx -p 80:80 -d nginx
 ```
 
-创建挂载目录
-
-```sh
-mkdir -p /data/nginx/conf /data/nginx/html /data/nginx/logs
-```
-
 将容器中的`nginx.conf`文件和`conf.d`文件夹复制到宿主机
 
 ```sh
 # 将容器nginx.conf文件复制到宿主机
-docker cp nginx:/etc/nginx/nginx.conf /data/nginx/conf/nginx.conf
+docker cp nginx:/etc/nginx/nginx.conf /data/nginx/conf
 # 将容器conf.d文件夹下内容复制到宿主机
-docker cp nginx:/etc/nginx/conf.d /data/nginx/conf/conf.d
+docker cp nginx:/etc/nginx/conf.d /data/nginx/conf
 # 将容器中的html文件夹复制到宿主机
-docker cp nginx:/usr/share/nginx/html /data/nginx/html
+docker cp nginx:/usr/share/nginx/html /data/nginx
 ```
 
 停止 `nginx`
@@ -278,7 +280,7 @@ docker stop nginx
 docker rm nginx
 ```
 
-再次启动容器并作目录挂载
+### 启动容器并作目录挂载
 
 ```sh
 docker run -idt --name=nginx -p 80:80 -p 443:443 --restart=always --privileged=true \

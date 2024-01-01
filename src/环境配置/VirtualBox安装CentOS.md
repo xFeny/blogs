@@ -76,20 +76,23 @@ VirtualBox虚拟机下载完成后，傻瓜式安装，一直点击下一步或�
 ![](http://oss.feny.ink/blogs/images/202312281328287.png)  
 
 ### 第三步：选择语言
-系统校验完成后，就到了安装Centos系统的主界面了。这地方可以选择语言，我这主要采用的是默认English，你也可选择简体中文。但建议选择English，方便后续跟着学习，如果想走的更远，英文这关肯定得过。 点击Continue  
+系统校验完成后，就到了安装`Centos`系统的主界面了。这地方可以选择语言，我这主要采用的是默认`English`，你也可选择简体中文。但建议选择`English`，方便后续跟着学习，如果想走的更远，英文这关肯定得过。 点击`Continue `
 
 ![](http://oss.feny.ink/blogs/images/202312281328306.png)  
 
 ### 第四步：系统设置
 
-（1）、点击SYSTEM中的 INSTALLATION DESTINATION ，进去之后不需要做任何配置，再点击左上角的Done，即可。完成后Begin installation由灰色变成蓝色，即变为可点击的状态。  
+（1）、点击`SYSTEM`中的 `INSTALLATION DESTINATION` ，进去之后不需要做任何配置，再点击左上角的`Done`即可。完成后`Begin installation`由灰色变成蓝色，即变为可点击的状态。  
 
 ![](http://oss.feny.ink/blogs/images/202312281328464.png)  
 ![](http://oss.feny.ink/blogs/images/202312281328501.png)  
 
-（2）、 点击NETWORK HOST NAME，进去后开启网络  
+（2）、 点击`NETWORK HOST NAME`，进去后开启网络  
 
-![](http://oss.feny.ink/blogs/images/202312281328368.png)  
+![](http://oss.feny.ink/blogs/images/202312281328368.png)   
+
+可以看到分配的`IP Address`
+
 ![](http://oss.feny.ink/blogs/images/202312281328778.png)  
 
 ### 第五步：开始安装
@@ -122,9 +125,93 @@ ROOT密码我这地方设置为123456。当然建议密码中包含：大写字�
 
 启动成功后即可使用Xshell连接  
 
-![](http://oss.feny.ink/blogs/images/202312281329385.png)  
+![](http://oss.feny.ink/blogs/images/202312281329385.png)   
 
-## 五、遇到的问题
-1、开发中虚拟机需要连接外部宿主IP，但ping不通问题  
+
+
+## 五、安装 CentOS 8
+
+下载：<https://mirrors.aliyun.com/centos/8.5.2111/isos/x86_64/CentOS-8.5.2111-x86_64-dvd1.iso>
+
+创建虚拟机步骤同上
+
+在软件选择选项中选择安装的模式。例如`包含图形界面Server with GUI`选项会在安装后的系统中提供图形界面，而如果想安装尽可能少的额外软件，可以选择`最小化安装Minimal Install`。
+
+<img src="http://oss.feny.ink/blogs/images/202401011152965.png" alt="image-20240101115231911" style="zoom:80%;" /> 
+
+这里选择`Minimal Install`
+
+<img src="http://oss.feny.ink/blogs/images/202401011157106.png" alt="image-20240101115732056" style="zoom:80%;" /> 
+
+点击`SYSTEM`中的 `INSTALLATION DESTINATION `，进去之后不需要做任何配置，再点击左上角的`Done`即可
+
+<img src="http://oss.feny.ink/blogs/images/202401011148415.png" alt="image-20240101114848357" style="zoom:80%;" /> 
+
+<img src="http://oss.feny.ink/blogs/images/202401011149146.png" alt="image-20240101114922097" style="zoom:80%;" /> 
+
+点击`NETWORK HOST NAME`，进去后开启网络 
+
+<img src="http://oss.feny.ink/blogs/images/202401011150594.png" alt="image-20240101115026538" style="zoom:80%;" /> 
+
+开启后会自动分配`IP Address`，点击左上角`Done`
+
+<img src="http://oss.feny.ink/blogs/images/202401011151571.png" alt="image-20240101115104516" style="zoom:80%;" /> 
+
+点击`Root Password`设置`root`密码
+
+<img src="http://oss.feny.ink/blogs/images/202401011151047.png" alt="image-20240101115141996" style="zoom:80%;" /> 
+
+设置完成点击左上角`Done`返回，可以看到`Begin Installaction`按钮变成可点击，点击开始安装
+
+<img src="http://oss.feny.ink/blogs/images/202401011158595.png" alt="image-20240101115823540" style="zoom:80%;" /> 
+
+等待系统安装完成后，点击`Reboot System`重启
+
+<img src="http://oss.feny.ink/blogs/images/202401011207222.png" alt="image-20240101120704173" style="zoom:80%;" /> 
+
+待出现如下界面即表示安装结束：
+
+<img src="http://oss.feny.ink/blogs/images/202401011210797.png" alt="image-20240101121051744" style="zoom:80%;" /> 
+
+## 六、遇到的问题
+
+### 1、开发中虚拟机需要连接外部宿主IP，但ping不通问题  
+
 **原因：** 宿主主机防火墙拦截了虚拟机IP  
+
 **解决办法：** 关闭电脑防火墙
+
+### 2、在 CentOS 8 中，使用 yum 时出现错误
+
+```sh
+Error: Failed to download metadata for repo 'appstream': Cannot prepare internal mirrorlist: No URLs in mirrorlist
+```
+
+**原因：**在2022年1月31日，CentOS团队终于从官方镜像中移除CentOS 8的所有包。
+
+**解决办法：** 
+
+将源文件备份
+
+```sh
+cd /etc/yum.repos.d/ && mkdir backup && mv *repo backup/
+```
+
+下载阿里源文件
+
+```sh
+curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
+```
+
+更新源里面的地址
+
+```sh
+sed -i -e "s|mirrors.cloud.aliyuncs.com|mirrors.aliyun.com|g " /etc/yum.repos.d/CentOS-*
+sed -i -e "s|releasever|releasever-stream|g" /etc/yum.repos.d/CentOS-*
+```
+
+生成缓存
+
+```sh
+yum clean all && yum makecache
+```
