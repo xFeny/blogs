@@ -234,7 +234,7 @@ tail -f /usr/local/nacos/logs/start.out
 
 <img src="http://oss.feny.ink/blogs/images/202401011644078.png" alt="image-20240101164412019" style="zoom:50%;" /> 
 
-#### 第七步、整合 Nginx
+#### 第七步、Nginx 代理 Nacos 集群
 
 在已安装nginx的`192.168.0.143`服务器上，编辑`nginx.conf`
 
@@ -243,7 +243,7 @@ tail -f /usr/local/nacos/logs/start.out
 vim nginx.conf
 ```
 
-在`http`内输入以下内容
+在`http`内增加以下内容
 
 ```sh
 # Nacos 集群服务
@@ -255,7 +255,7 @@ upstream nacos {
 
 server {
     listen       80;
-    server_name  192.168.0.143;
+    server_name  nacos.example.com;
     location /nacos {
         proxy_pass http://nacos;
         proxy_set_header Host $host;
@@ -264,98 +264,16 @@ server {
 }
 ```
 
-在`hhtp`外配置
+退出保存，重启`nginx`
+
+修改本地`hosts`文件，在`hsots`文件最后添加
 
 ```sh
-# nacos的grpc协议配置
-stream {
-	# 负载均衡配置（TCP长连接配置）,端口号在前面的端口号前要进行偏置1000
-	upstream nacos-tcp {
-		server 192.168.0.134:9848;
-		server 192.168.0.136:9848;
-		server 192.168.0.161:9848;
-	}
-
-	# 监听端口号在前面的端口号前要进行偏置1000
-	#如：http内的server配置listen为8848，则这里为9848
-	server {
-		listen 1080;
-		proxy_pass nacos-tcp;
-	}
-}
+# C:\Windows\System32\drivers\etc
+192.168.0.143 nacos.example.com
 ```
 
-整个`nginx.conf`配置如下：
-
-```sh
-user  nginx;
-worker_processes  auto;
-
-error_log  /var/log/nginx/error.log notice;
-pid        /var/run/nginx.pid;
-
-
-events {
-    worker_connections  1024;
-}
-
-
-http {
-    include       /etc/nginx/mime.types;
-    default_type  application/octet-stream;
-
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile        on;
-    #tcp_nopush     on;
-
-    keepalive_timeout  65;
-
-    #gzip  on;
-	
-	
-	# Nacos 集群服务
-	upstream nacos {
-		server 192.168.0.134:8848;
-		server 192.168.0.136:8848;
-		server 192.168.0.161:8848;
-	}
-	 
-	server {
-		listen       80;
-		server_name  192.168.0.143;
-		location /nacos {
-			proxy_pass http://nacos;
-			proxy_set_header Host $host;
-			proxy_set_header X-Real-IP $remote_addr;
-		}
-	}
-
-    include /etc/nginx/conf.d/*.conf;
-}
-
-# nacos的grpc协议配置
-stream {
-	# 负载均衡配置（TCP长连接配置）,端口号在前面的端口号前要进行偏置1000
-	upstream nacos-tcp {
-		server 192.168.0.134:9848;
-		server 192.168.0.136:9848;
-		server 192.168.0.161:9848;
-	}
-
-	server {
-		# 监听端口号在前面的端口号前要进行偏置1000
-		listen 1080;
-		proxy_pass nacos-tcp;
-	}
-}
-```
-
-退出保存，重启`nginx`，访问<http://192.168.0.143/nacos>
+访问<http://nacos.example.com/nacos>
 
 ## 二、Docker 环境安装 Nacos
 
@@ -702,76 +620,33 @@ docker logs -f nacos_3
 
 `Docker`安装`Nginx`，具体步骤[请看这里](https://www.feny.ink/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Nginx%20%E5%AE%89%E8%A3%85.html#docker-%E4%B8%8B%E5%AE%89%E8%A3%85)
 
-整个`nginx.conf`的配置如下：
+在`nginx`的`conf.d`目录下新建`nacos.conf`
 
 ```sh
-user  nginx;
-worker_processes  auto;
+vim nacos.conf
+```
 
-error_log  /var/log/nginx/error.log notice;
-pid        /var/run/nginx.pid;
+配置如下：
 
-
-events {
-    worker_connections  1024;
+```sh
+# nacos.conf
+# Nacos 集群服务
+upstream nacos {
+    server 192.168.0.143:18848;
+    server 192.168.0.143:28848;
+    server 192.168.0.143:38848;
 }
 
-
-http {
-    include       /etc/nginx/mime.types;
-    default_type  application/octet-stream;
-
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile        on;
-    #tcp_nopush     on;
-
-    keepalive_timeout  65;
-
-    #gzip  on;
-	
-	
-	# Nacos 集群服务
-	upstream nacos {
-		server 192.168.0.143:18848;
-		server 192.168.0.143:28848;
-		server 192.168.0.143:38848;
-	}
-	 
-	server {
-		listen       80;
-		# 有域名可以替换为域名，如
-		# server_name  nacos.feny.ink;
-		server_name  192.168.0.143;
-		location /nacos {
-			proxy_pass http://nacos;
-			proxy_set_header Host $host;
-			proxy_set_header X-Real-IP $remote_addr;
-		}
-	}
-
-    include /etc/nginx/conf.d/*.conf;
-}
-
-
-# nacos的grpc协议配置
-stream {
-	# 负载均衡配置（TCP长连接配置）,端口号在前面的端口号前要进行偏置1000
-	upstream nacos-grpc {
-		server 192.168.0.143:19848;
-		server 192.168.0.143:29848;
-		server 192.168.0.143:39848;
-	}
-
-	# 监听端口号在前面的端口号前要进行偏置1000
-	server {
-		listen 1080;
-		proxy_pass nacos-grpc;
-	}
+server {
+    listen       80;
+    # 有域名可以替换为域名，如
+    # server_name  nacos.feny.ink;
+    server_name  192.168.0.143;
+    location /nacos {
+        proxy_pass http://nacos;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
 }
 ```
 
@@ -781,7 +656,7 @@ stream {
 docker restart nginx
 ```
 
-浏览器打开<http://192.168.143:8848/nacos>
+浏览器打开<http://192.168.143/nacos>
 
 <img src="http://oss.feny.ink/blogs/images/202401021400377.png" alt="image-20240102140010295" style="zoom:50%;" /> 
 
@@ -823,78 +698,29 @@ docker inspect --format '{{ .NetworkSettings.IPAddress }}' nginx
 iptables -t nat -A DOCKER -p tcp --dport 8080 -j DNAT --to-destination 172.17.0.5:8080
 ```
 
-再次请求<http://192.168.0.143:8080>，就可以了！！！
-
-<img src="http://oss.feny.ink/blogs/images/202401021419127.png" alt="image-20240102141944068" style="zoom:50%;" /> 
-
-##### 问题二：SpringBoot注册服务到Nacos启动报错
-
-错误信息：
-
-```
-Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING
-```
-
-这是因为新版`Nacos`新增了`9848`端口，用于客户端向服务端发起连接和请求。
-
-**解决办法：**
-
-在`Nginx`增加如下配置
-
-```sh
-# nacos的grpc协议配置
-stream {
-	# 负载均衡配置（TCP长连接配置）,端口号在前面的端口号前要进行偏置1000
-	upstream nacos-grpc {
-		server 192.168.0.143:19848;
-		server 192.168.0.143:29848;
-		server 192.168.0.143:39848;
-	}
-
-	# 监听端口号在前面的端口号前要进行偏置1000
-	server {
-		listen 1080;
-		proxy_pass nacos-grpc;
-	}
-}
-```
+再次请求<http://192.168.0.143:8080>，就可以了！！！ 
 
 ### 公共属性配置
 
 | 属性名称 | 描述 |      |
 | -------- | :--: | ---- |
-| MODE										|系统启动方式：集群/单机|cluster/standalone默认 **cluster**|
+| MODE										|系统启动方式：集群/单机|cluster/standalone<br>默认： **cluster**|
 | NACOS_SERVERS								|集群地址|ip1:port1空格ip2:port2 空格ip3:port3|
-| PREFER_HOST_MODE							|支持IP还是域名模式|hostname/ip 默认 **ip**|
-| NACOS_SERVER_PORT							|Nacos运行端口|默认 **8848**|
-| NACOS_SERVER_IP							|多网卡模式下可以指定IP||
-| SPRING_DATASOURCE_PLATFORM				|单机模式下支持MYSQL数据库|mysql/空 默认:空|
+| PREFER_HOST_MODE							|支持IP还是域名模式|hostname/ip <br>默认：**ip**|
+| NACOS_SERVER_PORT							|Nacos运行端口|默认： **8848**|
+| SPRING_DATASOURCE_PLATFORM				|单机模式下支持MYSQL数据库|mysql/空 默认：空|
 | MYSQL _SERVICE_HOST					|数据库连接地址||
 | MYSQL_SERVICE_PORT				|数据库端口|默认 : **3306**|
 | MYSQL_SERVICE_DB_NAME						|数据库库名||
 | MYSQL_SERVICE_USER				|数据库用户名||
 | MYSQL_SERVICE_PASSWORD					|数据库用户密码||
-| MYSQL_SERVICE DB_PARAM				|数据库连接参数|默认：**characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false**|
-| MYSOL DATABASE_NUM			|数据库编号|默认 :**1**|
-| JVM_XMS									|-Xms|默认 :1g|
-| JVM XMX									|-Xmx|默认 :1g|
-| JVM_XMN									|-Xmn|默认 :512m|
-| JVM_MS									|-XX:MetaspaceSize|默认 :128m|
-| JVM_MMS								|-XX:MaxMetaspaceSize|默认 :320m|
-| NACOS_DEBUG							|是否开启远程DEBUG|y/n 默认 :n|
-| TOMCAT_ACCESSLOG_ENABLED			|server.tomcat.accesslog.enabled|默认 :false|
-| NACOS_AUTH SYSTEM_TYPE			|权限系统类型选择，目前只支持nacos类型|默认 :nacos|
-| NACOS_AUTH_ENABLE					|是否开启权限系统|默认 :false|
-| NACOS_AUTH TOKEN_EXPIRE_SECONDS	|token失效时间|默认 :18000|
-| NACOS_AUTH_TOKEN							|token|默认：空|
-| NACOS_AUTH CACHE_ENABLE			|权限缓存开关开启后权限缓存的更新默认有15秒的延迟|默认 : false|
-| MEMBER_LIST								|通过环境变量的方式设置集群地址|例子:192.168.16.101:8847?raft_port=8807,192.168.16.101?raft_port=8808,192.168.16.101:8849?raft_port=8809|
-| EMBEDDED_STORAGE						|是否开启集群嵌入式存储模式|`embedded` 默认 : none|
-| NACOS_AUTH_CACHE_ENABLE		|nacos.core.auth.caching.enabled|默认 : false|
-| NACOS_AUTH_USER_AGENT_AUTH_WHITE ENABLE	|nacos.core.auth.enable.userAgentAuthWhite|默认 : false|
-| NACOS_AUTH_IDENTITY_KEY					|nacos.core.auth.server.identity.key||
-| NACOS_AUTH_IDENTITY_VALUE				|nacos.core.auth.server.identity.value||
-| NACOS_SECURITY_IGNORE_URLS	|nacos.security.ignore.urls|默认：/,/error,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/v1/auth/**,/v1/console/health/**,/actuator/**,/v1/console/server/**|
+| MYSQL_SERVICE DB_PARAM				|数据库连接参数|默认：**<br>characterEncoding=utf8<br>&connectTimeout=1000<br>&socketTimeout=3000<br>&autoReconnect=true<br>&useSSL=false**|
+| MYSOL DATABASE_NUM			|数据库编号|默认：**1**|
+| NACOS_AUTH_ENABLE					|是否开启权限系统|默认：false|
+| NACOS_AUTH TOKEN_EXPIRE_SECONDS	|token失效时间|默认：18000|
+| NACOS_AUTH_TOKEN							|默认 token<br>nacos.core.auth.plugin.nacos.token.secret.key|默认：空<br>NACOS_AUTH_ENABLE=TRUE时必填<br>推荐将配置项设置为**Base64编码**的字符串，且**原始密钥长度不得低于32字符**|
+| NACOS_AUTH_IDENTITY_KEY					|nacos.core.auth.server.identity.key|NACOS_AUTH_ENABLE=TRUE时必填|
+| NACOS_AUTH_IDENTITY_VALUE				|nacos.core.auth.server.identity.value|NACOS_AUTH_ENABLE=TRUE时必填|
 
 
 
@@ -960,14 +786,22 @@ spring:
                 namespace: public
                 group: DEFAULT_GROUP
                 # Nacos服务器IP地址:端口
-                server-addr: 192.168.0.143:80
+                server-addr: 192.168.0.143:8848
                 # 用户名，如果Nacos未开启身份认证，请注释掉
                 username: nacos
                 # 默认密码为 nacos
                 password: nacos
-
 ```
+::: tip
+
+如果`nacos`服务做了`nginx`代理，然后Spring Boot项目启动失败，在` server-addr`加上`http://`试试
+
+如原来`server-addr: nacos.example.com`，改为`server-addr: http://nacos.example.com`
+
+:::
+
 ### （3）、启动服务
+
 服务启动成功后，在Nacos控制台--服务管理--服务列表中看到有服务，表示服务注册成功  
 
 ![](http://oss.feny.ink/blogs/images/202312281326377.png)  
