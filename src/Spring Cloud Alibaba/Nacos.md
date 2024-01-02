@@ -700,7 +700,7 @@ docker logs -f nacos_3
 
 #### 第七步：Nginx代理Nacos集群地址
 
-`Docker`安装`Nginx`，具体步骤[请看这里]()
+`Docker`安装`Nginx`，具体步骤[请看这里](https://www.feny.ink/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Nginx%20%E5%AE%89%E8%A3%85.html#docker-%E4%B8%8B%E5%AE%89%E8%A3%85)
 
 整个`nginx.conf`的配置如下：
 
