@@ -5,15 +5,15 @@ docker pull tomcat
 挂载目录
 
 ```sh
-mkdir -p /data/tomcat/webapps/ROOT /data/tomcat/logs
+mkdir -p /data/docker/tomcat/webapps/ROOT /data/docker/tomcat/logs
 ```
 
 ```sh
-touch /data/tomcat/webapps/ROOT/index.html
+touch /data/docker/tomcat/webapps/ROOT/index.html
 ```
 
 ```sh
-vim /data/tomcat/webapps/ROOT/index.html
+vim /data/docker/tomcat/webapps/ROOT/index.html
 ```
 
 ```
@@ -29,7 +29,7 @@ docker run -d --name=tomcat -p 8080:8080 tomcat
 复制
 
 ```sh
-docker cp tomcat:/usr/local/tomcat/conf /data/tomcat/
+docker cp tomcat:/usr/local/tomcat/conf /data/docker/tomcat/
 ```
 
 删除
@@ -46,9 +46,9 @@ docker run -itd \
 --name=tomcat \
 --restart=always \
 -p 8080:8080 \
--v /data/tomcat/conf:/usr/local/tomcat/conf \
--v /data/tomcat/logs:/usr/local/tomcat/logs \
--v /data/tomcat/webapps:/usr/local/tomcat/webapps \
+-v /data/docker/tomcat/conf:/usr/local/tomcat/conf \
+-v /data/docker/tomcat/logs:/usr/local/tomcat/logs \
+-v /data/docker/tomcat/webapps:/usr/local/tomcat/webapps \
 tomcat
 ```
 

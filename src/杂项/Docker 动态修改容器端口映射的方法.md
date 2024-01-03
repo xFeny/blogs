@@ -24,6 +24,7 @@ tag:
 查询容器`ip`
 
 ```sh
+# docker inspect mysql | grep "IPAddress"
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' 容器ID/容器名
 ```
 

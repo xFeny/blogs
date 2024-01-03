@@ -154,12 +154,12 @@ tar -xvf nacos-server-2.3.0.tar.gz
 #### 第三步、初始化数据库表
 
 使用任意 `MySQL` 客户端工具连接到 `MySQL` 数据库服务器，创建名为`nacos`的数据库，之后使用 `MySQL` 客户端执
-行 `nacos/conf/mysql-schema.sql` 文件，完成建表工作。  
+行 `/usr/local/nacos/conf/mysql-schema.sql` 文件，完成建表工作。  
 ![](http://oss.feny.ink/blogs/images/202312281325914.png)
 
 #### 第四步、配置 Nacos 数据源
 
-编辑服务器中`Nacos` 的核心配置文件 `/conf/application.properties`。
+编辑服务器中`Nacos` 的核心配置文件 `/usr/local/conf/application.properties`。
 
 默认数据源配置都被`#`号注释，删除`#`号注释按下方示例配置数据源。
 ```sh
@@ -197,7 +197,7 @@ Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieva
 
 #### 第五步、Nacos 集群节点配置
 
-在 `/nacos/config` 目录下提供了集群示例文件`cluster.conf.example` 
+在 `/usr/local/nacos/conf` 目录下提供了集群示例文件`cluster.conf.example` 
 首先利用复制命令创建 `cluster.conf` 文件。  
 
 ```sh
@@ -236,18 +236,20 @@ tail -f /usr/local/nacos/logs/start.out
 
 #### 第七步、Nginx 代理 Nacos 集群
 
-在已安装nginx的`192.168.0.143`服务器上，编辑`nginx.conf`
+在已安装nginx的`192.168.0.143`服务器上
+
+在`nginx`的`conf.d`目录下新建`nacos.conf`
 
 ```sh
-# ./nginx/conf/nginx.conf
+cd /nginx/conf/conf.d
 vim nginx.conf
 ```
 
-在`http`内增加以下内容
+内容以下：
 
 ```sh
 # Nacos 集群服务
-upstream nacos {
+upstream nacos_server {
     server 192.168.0.134:8848;
     server 192.168.0.136:8848;
     server 192.168.0.161:8848;
@@ -256,8 +258,8 @@ upstream nacos {
 server {
     listen       80;
     server_name  nacos.example.com;
-    location /nacos {
-        proxy_pass http://nacos;
+    location / {
+        proxy_pass http://nacos_server;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -274,6 +276,20 @@ server {
 ```
 
 访问<http://nacos.example.com/nacos>
+
+完成部署！！！
+
+#### 遇到的问题
+
+问题一：如果`nginx`代理`nacos`将的访问地址`http://nacos.example.com/nacos`改为`http://nacos.example.com`的形式，`http://nacos.example.com`访问控制台没问题，但是`Spring Boot`项目注册服务启动时就会报错。
+
+错误信息：
+
+```tex
+Caused by: com.alibaba.nacos.api.exception.NacosException: user not found!
+```
+
+暂时没有找到解决办法
 
 ## 二、Docker 环境安装 Nacos
 
@@ -324,24 +340,28 @@ docker rm nacos
 #### 第四步、初始化数据库表
 
 使用任意 `MySQL` 客户端工具连接到 `MySQL` 数据库服务器，创建名为`nacos`的数据库，之后使用 `MySQL` 客户端执
-行 `nacos/conf/mysql-schema.sql` 文件，完成建表工作。
+行 `/data/docker/nacos/conf/mysql-schema.sql` 文件，完成建表工作。
 ![](http://oss.feny.ink/blogs/images/202312281325914.png)
 
 #### 第五步、配置 Nacos 数据源
 
-找到`nacos`目录下配置文件 `application.properties`，文件路径如下：
+编辑 `application.properties`文件
 
 ```sh
-./nacos/conf/application.properties
+vim /data/docker/nacos/conf/application.properties
 ```
 
-默认数据源配置都被`#`号注释，删除注释按下方示例配置数据源即可。
+修改以下信息，默认数据源配置都被`#`号注释，删除注释按下方示例配置数据源即可。
 
 ```sh
+# /data/docker/nacos/conf/application.properties
 spring.sql.init.platform=mysql
 db.num=1
+# 数据库连接地址和数据库名称修改成自己的
 db.url.0=jdbc:mysql://192.168.0.143:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+# 数据库用户
 db.user.0=root
+# 数据库密码
 db.password.0=123456
 ```
 
@@ -366,7 +386,7 @@ nacos/nacos-server
 查看启动日志：
 
 ```sh
-docker logs -f nacos
+docker logs -f -n nacos
 ```
 
 显示如下内容，表示启动成功：
@@ -375,7 +395,7 @@ docker logs -f nacos
 
 
 
-### 单机模式运行--docker -e 配置参数
+### 单机模式运行--docker -e 参数配置方式
 
 #### 第一步、拉取镜像
 
@@ -385,7 +405,7 @@ docker pull nacos/nacos-server
 
 #### 第二步、启动 Nacos
 
-不连接`MySQL`
+如果不想连接`MySQL`
 
 ```sh
 docker run -itd \
@@ -437,12 +457,12 @@ nacos/nacos-server
 docker logs -f nacos
 ```
 
-如果启动时添加了`MySQL`连接，如果还没有在`mysql`中创建`nacos`数据库和初始化相关表，此时启动会报错。
+如果启动时添加了`MySQL`连接，但是还没有在`mysql`中创建`nacos`数据库和初始化相关表，此时启动会报错。
 
 复制`nacos`容器中的`mysql-schema.sql`出来，导入`nacos`数据库中
 
 ```sh
-docker cp nacos:/home/nacos/conf/mysql-schema.sql /目录
+docker cp nacos:/home/nacos/conf/mysql-schema.sql /想要复制到的目录
 ```
 
 数据库初始化表后，重新运行`nacos`
@@ -462,34 +482,36 @@ docker pull nacos/nacos-server
 #### 第二步、创建挂载目录
 
 ```sh
-mkdir -p /data/docker/nacos_1/conf /data/docker/nacos_1/logs /data/docker/nacos_1/data
-mkdir -p /data/docker/nacos_2/conf /data/docker/nacos_2/logs /data/docker/nacos_2/data
-mkdir -p /data/docker/nacos_3/conf /data/docker/nacos_3/logs /data/docker/nacos_3/data
+mkdir -p /data/docker/nacos_cluster_1/conf /data/docker/nacos_cluster_1/logs /data/docker/nacos_cluster_1/data
+mkdir -p /data/docker/nacos_cluster_2/conf /data/docker/nacos_cluster_1/logs /data/docker/nacos_cluster_1/data
+mkdir -p /data/docker/nacos_cluster_3/conf /data/docker/nacos_cluster_1/logs /data/docker/nacos_cluster_1/data
 ```
 
 >-p 作用是在创建多级文件时，不存在某一级文件就会创建，存在就使用原文件
+>
+>*注意：* 这里为了演示所以将`nacos`部署在了同一台服务器上，实际环境中不推荐这样做，实际中还是准备3台服务器，在3台服务器上分别部署。
 
 #### 第三步、复制容器的相关文件到挂载目录
 
 启动`Nacos`
 
 ```sh
-docker run --name nacos -d -p 8848:8848 -e MODE=standalone  nacos/nacos-server
+docker run -d --name=nacos -e MODE=standalone nacos/nacos-server
 ```
 
 复制容器的相关文件到挂载目录
 
 ```sh
-docker cp nacos:/home/nacos/conf /data/docker/nacos_1
-docker cp nacos:/home/nacos/logs /data/docker/nacos_1
-docker cp nacos:/home/nacos/data /data/docker/nacos_1
+docker cp nacos:/home/nacos/conf /data/docker/nacos_cluster_1
+docker cp nacos:/home/nacos/logs /data/docker/nacos_cluster_1
+docker cp nacos:/home/nacos/data /data/docker/nacos_cluster_1
 ```
 
 将`/data/docker/nacos_1`中的目录分别复制到`/data/docker/nacos_2`和`/data/docker/nacos_3`中
 
 ```sh
-cp -rv /data/docker/nacos_1/* /data/docker/nacos_2/
-cp -rv /data/docker/nacos_1/* /data/docker/nacos_3/
+cp -rv /data/docker/nacos_cluster_1/* /data/docker/nacos_cluster_2/
+cp -rv /data/docker/nacos_cluster_1/* /data/docker/nacos_cluster_3/
 ```
 
 停止`Nacos`容器
@@ -536,20 +558,20 @@ docker run -itd \
 -p 17848:7848 \
 -e PREFER_HOST_MODE=ip \
 -e NACOS_SERVERS="192.168.0.143:28848 192.168.0.143:38848" \
--v /data/docker/nacos_1/conf/:/home/nacos/conf \
--v /data/docker/nacos_1/logs:/home/nacos/logs \
--v /data/docker/nacos_1/data:/home/nacos/data \
---name=nacos_1 \
+-v /data/docker/nacos_cluster_1/conf/:/home/nacos/conf \
+-v /data/docker/nacos_cluster_1/logs:/home/nacos/logs \
+-v /data/docker/nacos_cluster_1/data:/home/nacos/data \
+--name=nacos_cluster_1 \
 --restart=always \
 nacos/nacos-server
 ```
 
-> **注意：**-e NACOS_SERVERS=192.168.0.143:27848 192.168.0.143:37848，这是另外两个Nacos服务的IP:端口，不包括自己
+> **注意：**-e NACOS_SERVERS="192.168.0.143:18848 192.168.0.143:38848"，这是另外两个Nacos服务的IP:端口，不包括自己
 
 查看启动日志
 
 ```sh
-docker logs -f nacos_1
+docker logs -f nacos_cluster_1
 ```
 
 启动`nacos_2
@@ -562,18 +584,20 @@ docker run -itd \
 -p 27848:7848 \
 -e PREFER_HOST_MODE=ip \
 -e NACOS_SERVERS="192.168.0.143:18848 192.168.0.143:38848" \
--v /data/docker/nacos_2/conf/:/home/nacos/conf \
--v /data/docker/nacos_2/logs:/home/nacos/logs \
--v /data/docker/nacos_2/data:/home/nacos/data \
---name=nacos_2 \
+-v /data/docker/nacos_cluster_2/conf/:/home/nacos/conf \
+-v /data/docker/nacos_cluster_2/logs:/home/nacos/logs \
+-v /data/docker/nacos_cluster_2/data:/home/nacos/data \
+--name=nacos_cluster_2 \
 --restart=always \
 nacos/nacos-server
 ```
 
+> **注意：**-e NACOS_SERVERS="192.168.0.143:18848 192.168.0.143:38848"，这是另外两个Nacos服务的IP:端口，不包括自己
+
 查看启动日志
 
 ```sh
-docker logs -f nacos_2
+docker logs -f nacos_cluster_2
 ```
 
 启动`nacos_`3
@@ -586,18 +610,20 @@ docker run -itd \
 -p 37848:7848 \
 -e PREFER_HOST_MODE=ip \
 -e NACOS_SERVERS="192.168.0.143:18848 192.168.0.143:28848" \
--v /data/docker/nacos_3/conf/:/home/nacos/conf \
--v /data/docker/nacos_3/logs:/home/nacos/logs \
--v /data/docker/nacos_3/data:/home/nacos/data \
---name=nacos_3 \
+-v /data/docker/nacos_cluster_3/conf/:/home/nacos/conf \
+-v /data/docker/nacos_cluster_3/logs:/home/nacos/logs \
+-v /data/docker/nacos_cluster_3/data:/home/nacos/data \
+--name=nacos_cluster_3 \
 --restart=always \
 nacos/nacos-server
 ```
 
+> **注意：**-e NACOS_SERVERS="192.168.0.143:18848 192.168.0.143:28848"，这是另外两个Nacos服务的IP:端口，不包括自己
+
 查看启动日志
 
 ```sh
-docker logs -f nacos_3
+docker logs -f nacos_cluster_3
 ```
 
 3个`Nacos`服务都启动成功后
@@ -631,7 +657,7 @@ vim nacos.conf
 ```sh
 # nacos.conf
 # Nacos 集群服务
-upstream nacos {
+upstream nacos_server {
     server 192.168.0.143:18848;
     server 192.168.0.143:28848;
     server 192.168.0.143:38848;
@@ -640,12 +666,13 @@ upstream nacos {
 server {
     listen       80;
     # 有域名可以替换为域名，如
-    # server_name  nacos.feny.ink;
+    # server_name  nacos.example.com;
     server_name  192.168.0.143;
-    location /nacos {
-        proxy_pass http://nacos;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
+    location / {
+        proxy_pass http://nacos_server;
+        proxy_set_header Host $http_host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
 ```
@@ -681,6 +708,8 @@ server {
 浏览器请求<http://192.168.0.143:8080>
 
 <img src="http://oss.feny.ink/blogs/images/202401021417704.png" alt="image-20240102141704632" style="zoom:50%;" /> 
+
+这是因为`docker run nginx`时并没有映射相应端口。
 
 **解决办法：**
 
@@ -804,7 +833,98 @@ spring:
 
 服务启动成功后，在Nacos控制台--服务管理--服务列表中看到有服务，表示服务注册成功  
 
-![](http://oss.feny.ink/blogs/images/202312281326377.png)  
+<img src="http://oss.feny.ink/blogs/images/202312281326377.png" style="zoom:50%;" />  
 
 ## 五、配置管理
+
+学习地址：<https://blog.csdn.net/ImisLi/article/details/128745872>
+
+<https://blog.csdn.net/qinxun2008081/article/details/131347990>
+
+配置`pom.xml`
+
+```
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+    <version>3.1.4</version>
+</dependency>
+```
+
+创建`bootstrap.yml`
+
+```yml
+spring:
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: http://192.168.0.164
+      config:
+        namespace: public
+        # 文件扩展名，默认
+        file-extension: yaml
+```
+
+`Nacos`默认读取配置文件结构：
+
+```
+S{spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+```
+
+![image-20240103143547445](http://oss.feny.ink/blogs/images/202401031435514.png)
+
+所以创建配置时要注意。
+
+如果想自定义读取指定的配置，如定义的`spring.application.name=test-service`，创建的配置为`custom-service.yaml`
+
+具体配置如下：
+
+```yml
+server:
+  port: 10080
+spring:
+  application:
+    name: test-service
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        namespace: public
+        # 文件扩展名
+        file-extension: yaml
+        # 指定配置文件名
+        prefix: custom-service
+```
+
+![image-20240103144455054](http://oss.feny.ink/blogs/images/202401031444113.png) 
+
+### 遇到的问题
+
+#### 问题一：Add a spring.config.import=nacos: property to your configuration. 
+
+启动报错：
+
+![image-20240103125558782](http://oss.feny.ink/blogs/images/202401031255841.png)
+
+#### **解决方法**
+
+因为 SpringCloud 2020.* 版本把`bootstrap`禁用了，导致在读取文件的时候读取不到而报错，所以我们只要把`bootstrap`重新导入进来就会生效了。
+
+##### **添加pom**
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+    <version>3.1.4</version>
+</dependency>
+```
 

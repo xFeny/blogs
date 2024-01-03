@@ -312,15 +312,15 @@ docker pull redis
 ### 2、创建需要挂载的文件夹
 
 ```sh
-mkdir -p /data/redis/conf /data/redis/data
+mkdir -p /data/docker/redis/conf /data/docker/redis/data
 ```
 
 ### 3、配置 redis.conf
 
-进入`/data/redis/conf`下载配置文件`redis.conf`
+进入`/data/docker/redis/conf`下载配置文件`redis.conf`
 
 ```sh
-cd /data/redis/conf
+cd /data/docker/redis/conf
 wget http://download.redis.io/redis-stable/redis.conf
 ```
 
@@ -340,8 +340,8 @@ appendonly yes
 
 ```sh
 docker run -itd --restart=always --name redis --privileged=true -p 6379:6379 \
--v /data/redis/conf/redis.conf:/etc/redis/redis.conf \
--v /data/redis/data:/data \
+-v /data/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
+-v /data/docker/redis/data:/data \
 redis \
 redis-server /etc/redis/redis.conf
 ```

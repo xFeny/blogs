@@ -246,7 +246,7 @@ docker pull nginx
 ### 创建挂载目录
 
 ```sh
-mkdir -p /data/nginx/conf /data/nginx/conf/conf.d /data/nginx/logs /data/nginx/html
+mkdir -p /data/docker/nginx/conf /data/docker/nginx/conf/conf.d /data/docker/nginx/logs /data/docker/nginx/html
 ```
 
 ### 复制 nginx 配置文件
@@ -261,11 +261,11 @@ docker run --name=nginx -p 80:80 -d nginx
 
 ```sh
 # 将容器nginx.conf文件复制到宿主机
-docker cp nginx:/etc/nginx/nginx.conf /data/nginx/conf
+docker cp nginx:/etc/nginx/nginx.conf /data/docker/nginx/conf
 # 将容器conf.d文件夹下内容复制到宿主机
-docker cp nginx:/etc/nginx/conf.d /data/nginx/conf
+docker cp nginx:/etc/nginx/conf.d /data/docker/nginx/conf
 # 将容器中的html文件夹复制到宿主机
-docker cp nginx:/usr/share/nginx/html /data/nginx
+docker cp nginx:/usr/share/nginx/html /data/docker/nginx
 ```
 
 停止 `nginx`
@@ -284,10 +284,10 @@ docker rm nginx
 
 ```sh
 docker run -idt --name=nginx -p 80:80 -p 443:443 --restart=always --privileged=true \
--v /data/nginx/html:/usr/share/nginx/html \
--v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
--v /data/nginx/conf/conf.d/:/etc/nginx/conf.d/ \
--v /data/nginx/logs:/var/log/nginx \
+-v /data/docker/nginx/html:/usr/share/nginx/html \
+-v /data/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+-v /data/docker/nginx/conf/conf.d/:/etc/nginx/conf.d/ \
+-v /data/docker/nginx/logs:/var/log/nginx \
 nginx
 ```
 
@@ -302,11 +302,14 @@ docker run  在docker中启动一个容器实例
 		-p 80:80  容器与主机映射端口为，主机80，容器80
 		--name nginx  容器运行后的名称
 		--restart=always  自动启动容器
-		-v /data/nginx/html:/usr/share/nginx/html  挂载nginx静态文件
-		-v /data/nginx/conf/nginx.conf  挂载nginx.conf配置文件
-		-v /data/nginx/conf/conf.d/  挂载nginx配置文件
-		-v /data/nginx/logs:/var/log/nginx  挂载nginx日志文件
+		-v /data/docker/nginx/html:/usr/share/nginx/html  挂载nginx静态文件
+		-v /data/docker/nginx/conf/nginx.conf  挂载nginx.conf配置文件
+		-v /data/docker/nginx/conf/conf.d/  挂载nginx配置文件
+		-v /data/docker/nginx/logs:/var/log/nginx  挂载nginx日志文件
 		nginx	运行的版本
 ```
 
 部署完成！！！
+
+
+

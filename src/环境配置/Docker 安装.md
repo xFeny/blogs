@@ -83,5 +83,6 @@ systemctl enable docker
 | 13   | docker image rm [镜像名/镜像ID]         | 强制删除镜像                                                 |
 | 14   | docker ps                               | 查看正在运行的镜像容器                                       |
 | 15   | docker ps -a                            | 查看时所有镜像容器                                           |
-| 16   | docker update [容器名] --restart=always | 设置docker内容器的自启动。<br/>docker内的容器默认是不会自启动的，要自启动需要设置。<br/>如 docker update redis --restart=always<br/>和 docker update mysql --restart=always |
+| 16   | docker logs -f [-n 10] [镜像名/镜像ID]  | 查看镜像容器日志， -n 10 显示最新的行数                      |
+| 17   | docker update [容器名] --restart=always | 设置docker内容器的自启动。<br/>docker内的容器默认是不会自启动的，要自启动需要设置。<br/>如 docker update redis --restart=always<br/>和 docker update mysql --restart=always |
 
