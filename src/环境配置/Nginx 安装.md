@@ -78,9 +78,12 @@ nginx -s quit	完整有序的停止nginx
 ```sh
 #查看是否存在
 gcc -v
-yum install -y gcc 		
+yum install -y gcc
+# 用于解析正则表达式
 yum install -y pcre pcre-devel
+# zlib压缩和解压缩依赖
 yum install -y zlib zlib-devel
+# SSL 安全的加密的套接字协议层，用于HTTP安全传输，也就是https
 yum install -y openssl openssl-devel
 ```
 
@@ -99,7 +102,7 @@ tar -zxvf nginx-1.24.0.tar.gz
 
 ```sh
 cd nginx-1.24.0
-./configure
+./configure --with-http_ssl_module
 make
 make install
 ```
@@ -220,7 +223,7 @@ systemctl stop nginx
 # 设置开机自启动
 systemctl enable nginx
 # 停止开机自启动
-systemctl disable nginx  	#（）
+systemctl disable nginx
 # 查看服务当前状态
 systemctl status nginx
 # 重新启动服务
@@ -313,3 +316,8 @@ docker run  在docker中启动一个容器实例
 
 
 
+## Nginx 高可用
+
+<https://www.jianshu.com/p/b60fcab2a734>
+
+<https://www.cnblogs.com/wenxuehai/p/15013654.html>

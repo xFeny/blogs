@@ -1,3 +1,25 @@
+---
+# 是否收藏在博客主题的文章列表中。
+# 当填入数字时，数字越大，排名越靠前，类型: boolean | number，默认值: false
+# start: true
+
+# 作者
+author: Feny
+# 写作时间
+date: 2024-01-04
+# 当前页面图标的 FontClass 或文件路径
+# icon: tomcat
+# 分类
+category:
+  - 环境配置
+
+# 标签
+tag:
+  - Tomcat
+---
+
+# Tomcat 安装
+
 ```sh
 docker pull tomcat
 ```
@@ -5,19 +27,7 @@ docker pull tomcat
 挂载目录
 
 ```sh
-mkdir -p /data/docker/tomcat/webapps/ROOT /data/docker/tomcat/logs
-```
-
-```sh
-touch /data/docker/tomcat/webapps/ROOT/index.html
-```
-
-```sh
-vim /data/docker/tomcat/webapps/ROOT/index.html
-```
-
-```
-<h1>Welcome Use Tomcat<h1>
+mkdir -p /data/docker/tomcat /data/docker/tomcat/logs
 ```
 
 启动
@@ -26,17 +36,17 @@ vim /data/docker/tomcat/webapps/ROOT/index.html
 docker run -d --name=tomcat -p 8080:8080 tomcat
 ```
 
-复制
+复制`tomcat`文件
 
 ```sh
 docker cp tomcat:/usr/local/tomcat/conf /data/docker/tomcat/
+docker cp tomcat:/usr/local/tomcat/webapps.dist/ /data/docker/tomcat/webapps/
 ```
 
 删除
 
 ```sh
-docker stop tomcat
-docker rm tomcat
+docker stop tomcat && docker rm tomcat
 ```
 
 启动
@@ -51,4 +61,3 @@ docker run -itd \
 -v /data/docker/tomcat/webapps:/usr/local/tomcat/webapps \
 tomcat
 ```
-
