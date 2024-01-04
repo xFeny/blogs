@@ -2,6 +2,7 @@
 author: Feny
 date: 2023-12-26
 icon: centos
+order: 1
 category:
   - Linux
   - 环境配置

@@ -6,9 +6,8 @@
 # 作者
 author: Feny
 # 写作时间
-date: 2023-12-25
-# 当前页面图标的 FontClass 或文件路径
-# icon: string
+date: 2024-01-04
+icon: docker
 # 分类
 category:
   - Docker

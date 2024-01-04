@@ -2,6 +2,7 @@
 author: Feny
 date: 2023-12-27
 icon: node
+order: 7
 category:
   - Node
   - 环境配置

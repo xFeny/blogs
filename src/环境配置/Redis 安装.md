@@ -2,6 +2,7 @@
 author: Feny
 date: 2023-12-28
 icon: Redis
+order: 5
 category:
   - Redis
   - 环境配置

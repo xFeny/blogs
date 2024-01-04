@@ -4,6 +4,7 @@ author: Feny
 date: 2023-12-28
 icon: mysql
 star: true
+order: 4
 category:
   - MySQL
   - 环境配置

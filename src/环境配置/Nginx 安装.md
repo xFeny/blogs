@@ -3,6 +3,7 @@
 author: Feny
 date: 2023-12-28
 icon: nginx
+order: 6
 category:
   - 环境配置
   - Nginx

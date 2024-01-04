@@ -8,12 +8,13 @@ export default navbar([
     prefix: "/环境配置/",
     children: [
       "VirtualBox安装CentOS",
-      "Java环境配置",
-      "Node.js安装",
-      "Redis 安装",
-      "MySQL 安装",
-      "Nginx 安装",
       "Docker 安装",
+      "Java环境配置",
+      "MySQL 安装",
+      "Redis 安装",
+      "Nginx 安装",
+      "Node.js安装",
+
     ],
   },
   {
@@ -32,7 +33,17 @@ export default navbar([
   {
     text: "杂项",
     icon: "write",
-    link: "/杂项/",
+    prefix: "/杂项/",
+    children: [
+      {
+        text: "常用命令",
+        children: ["Docker 常用命令.md", "Linux 常用命令.md"],
+      },
+      {
+        text: "全部",
+        link: "/杂项/"
+      }
+    ],
   },
   {
     text: '分类',

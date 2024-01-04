@@ -3,6 +3,7 @@ author: Feny
 date: 2023-12-25
 icon: java
 star: true
+order: 3
 category:
   - Java
   - 环境配置
