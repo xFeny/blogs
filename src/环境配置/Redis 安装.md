@@ -325,6 +325,12 @@ cd /data/docker/redis/conf
 wget http://download.redis.io/redis-stable/redis.conf
 ```
 
+下载好`redis.conf`，编辑文件
+
+```sh
+vim redis.conf
+```
+
 修改以下配置：
 
 ```sh

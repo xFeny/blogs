@@ -40,7 +40,7 @@ export default navbar([
         children: ["Docker 常用命令.md", "Linux 常用命令.md"],
       },
       {
-        text: "全部",
+        text: "全部内容",
         link: "/杂项/"
       }
     ],
