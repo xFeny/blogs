@@ -8,7 +8,7 @@ author: Feny
 # 写作时间
 date: 2024-07-15
 # 当前页面图标的 FontClass 或文件路径
-# icon: string
+icon: markdown
 # 分类
 category:
   - 教程
@@ -18,9 +18,9 @@ tag:
   - 内网穿透
 ---
 
-# utools插件内网穿透使用教程
+# uTools插件内网穿透使用教程
 
-原文教程：https://www.yuque.com/xinu/notes/mzagfszkmy1gecaf?singleDoc
+原文教程：<https://www.yuque.com/xinu/notes/mzagfszkmy1gecaf?singleDoc>
 
 ## 准备工作
 
@@ -50,7 +50,7 @@ tag:
 
 #### 下载服务端
 
-下载地址: https://github.com/imxiny/easyipx
+下载地址: <https://github.com/imxiny/easyipx>
 
 根据自身需求，选择下载v4还是v3
 
@@ -304,8 +304,8 @@ server {
 
 启动完成后即可外网访问内网的服务地址，外网访问地址为：
 
-1. 如果为直连模式：http://test.ipx.feny.ink:16080
-2. nginx代理模式：http://test.ipx.feny.ink
+1. 如果为直连模式：<http://test.ipx.feny.ink:16080>
+2. nginx代理模式：<http://test.ipx.feny.ink>
 
 
 
