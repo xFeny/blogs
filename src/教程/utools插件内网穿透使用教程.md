@@ -123,7 +123,7 @@ tag:
 
 在设置中心生成证书
 
-<img src="http://oss.feny.ink/blogs/images/202407151340400.png" alt="image-20240715134053352" style="zoom:80%;" />
+<img src="http://oss.feny.ink/blogs/images/202407151340400.png" alt="image-20240715134053352" style="zoom:80%;" /> 
 
 ### 直连模式部署
 
@@ -223,13 +223,13 @@ nohup ./easyipx -c conf.json > /dev/null 2>&1 &
 
 
 
-<img src="http://oss.feny.ink/blogs/images/202407151231572.png" alt="image-20240715123154519" style="zoom:80%;" />
+<img src="http://oss.feny.ink/blogs/images/202407151231572.png" alt="image-20240715123154519" style="zoom:80%;" /> 
 
 如果开启在`conf,json`开启通道加密，添加主机时要开启传输加密按钮，并上传证书
 
 
 
-<img src="http://oss.feny.ink/blogs/images/202407151406019.png" alt="image-20240715140644964" style="zoom: 67%;" />
+<img src="http://oss.feny.ink/blogs/images/202407151406019.png" alt="image-20240715140644964" style="zoom: 67%;" /> 
 
 
 
@@ -300,14 +300,14 @@ server {
 
 隧道添加完成后，启动隧道
 
-<img src="http://oss.feny.ink/blogs/images/202407151336825.png" alt="image-20240715133638775" style="zoom:80%;" />
+<img src="http://oss.feny.ink/blogs/images/202407151336825.png" alt="image-20240715133638775" style="zoom:80%;" /> 
+
+<img src="http://oss.feny.ink/blogs/images/202407151412543.png" alt="image-20240715141207498" style="zoom:67%;" /> 
 
 启动完成后即可外网访问内网的服务地址，外网访问地址为：
 
 1. 如果为直连模式：http://test.ipx.feny.ink:16080
 2. nginx代理模式：http://test.ipx.feny.ink
-
-
 
 
 
