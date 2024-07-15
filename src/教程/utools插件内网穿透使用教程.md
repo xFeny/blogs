@@ -227,8 +227,6 @@ nohup ./easyipx -c conf.json > /dev/null 2>&1 &
 
 如果开启在`conf,json`开启通道加密，添加主机时要开启传输加密按钮，并上传证书
 
-
-
 <img src="http://oss.feny.ink/blogs/images/202407151406019.png" alt="image-20240715140644964" style="zoom: 67%;" /> 
 
 
@@ -288,7 +286,7 @@ server {
 
 #### 插件添加主机
 
-<img src="C:/Users/Administrator/Desktop/202407151327808.png" alt="image-20240715132731701" style="zoom:80%;" /> 
+<img src="http://oss.feny.ink/blogs/images/202407151416223.png" alt="image-20240715141640163" style="zoom:80%;" /> 
 
 ### 添加隧道
 
