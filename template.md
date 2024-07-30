@@ -8,7 +8,7 @@ author: Feny
 # 写作时间
 date: 2024-01-01
 # 当前页面图标的 FontClass 或文件路径
-# icon: string
+icon: markdown
 # 分类
 category:
   - 分类
